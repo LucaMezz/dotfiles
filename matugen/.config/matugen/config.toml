@@ -10,3 +10,11 @@ post_hook = "pkill -SIGUSR2 waybar || true"
 input_path = "~/dotfiles/matugen/.config/matugen/templates/kitty-colors.conf"
 output_path = "~/dotfiles/kitty/.config/kitty/colors.conf"
 post_hook = "kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true"
+
+[templates.rofi]
+input_path = "~/.config/matugen/templates/rofi-colors.rasi"
+output_path = "~/.config/rofi/colors.rasi"
+
+[templates.walker]
+input_path = "~/.config/matugen/templates/walker-colors.css"
+output_path = "~/dotfiles/walker/.config/walker/themes/matugen/style.css"

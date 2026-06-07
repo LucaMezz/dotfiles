@@ -1,0 +1,85 @@
+@import "colors.rasi"
+
+configuration {
+    show-icons: true;
+}
+
+* {
+    font:             "JetBrainsMono Nerd Font 10";
+    background-color: transparent;
+    text-color:       @on-surface;
+}
+
+window {
+    width:            980px;
+    border:           2px solid;
+    border-color:     @primary;
+    border-radius:    0;
+    background-color: @surface;
+    padding:          16px;
+}
+
+mainbox {
+    spacing:          12px;
+    background-color: transparent;
+    children:         [ "inputbar", "listview" ];
+}
+
+inputbar {
+    children:         [ "prompt", "entry" ];
+    background-color: @surface-tint;
+    border-radius:    0;
+    padding:          10px 14px;
+}
+
+prompt {
+    text-color: @primary;
+    padding:    0 10px 0 0;
+}
+
+entry {
+    text-color:        @on-surface;
+    placeholder:       "search wallpapers...";
+    placeholder-color: @on-primary;
+}
+
+listview {
+    columns:       4;
+    lines:         3;
+    flow:          horizontal;
+    fixed-columns: true;
+    fixed-height:  false;
+    spacing:       8px;
+    scrollbar:     false;
+}
+
+element {
+    orientation:      vertical;
+    border-radius:    0;
+    padding:          8px;
+    background-color: transparent;
+    cursor:           pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @on-surface;
+}
+
+element selected.normal {
+    background-color: @primary-container;
+    text-color:       @on-primary-container;
+}
+
+element-icon {
+    size:             216px;
+    border-radius:    0;
+    horizontal-align: 0.5;
+}
+
+element-text {
+    font:             "JetBrainsMono Nerd Font 9";
+    horizontal-align: 0.5;
+    padding:          5px 0 0 0;
+    max-lines:        1;
+}

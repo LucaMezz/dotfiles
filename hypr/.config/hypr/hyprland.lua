@@ -312,6 +312,10 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
+-- Wallpaper
+hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh"))
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-random.sh"))
+
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
