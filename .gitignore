@@ -1,0 +1,15 @@
+*.bak
+*.swp
+*.swo
+*.tmp
+
+.cache/
+.local/
+.var/
+
+*.log
+.DS_Store
+
+secrets/
+.env
+.env.*
