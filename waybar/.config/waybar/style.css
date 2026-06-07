@@ -1,0 +1,113 @@
+@import "colors.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Aporetic Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+window#waybar {
+  background: alpha(@background, 0.86);
+  color: @on_background;
+  border-bottom: 1px solid alpha(@surface_tint, 0.28);
+}
+
+tooltip {
+  background: @surface;
+  color: @on_surface;
+  border: 1px solid alpha(@surface_tint, 0.45);
+  border-radius: 8px;
+}
+
+#workspaces {
+  margin: 5px 0 5px 8px;
+  padding: 0 4px;
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  margin: 2px;
+  color: @on_surface;
+  background: transparent;
+  border-radius: 999px;
+}
+
+#workspaces button.active {
+  color: @on_primary_container;
+  background: @primary_container;
+}
+
+#workspaces button:hover {
+  color: @on_secondary_container;
+  background: @secondary_container;
+}
+
+#workspaces button.urgent {
+  color: @on_error_container;
+  background: @error_container;
+}
+
+#clock,
+#custom-gpu,
+#cpu,
+#memory,
+#network,
+#wireplumber,
+#tray {
+  margin: 5px 3px;
+  padding: 0 9px;
+  background: alpha(@surface, 0.55);
+  color: @on_surface;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+}
+
+#clock {
+  color: @on_primary_container;
+  background: alpha(@primary_container, 0.88);
+}
+
+#custom-gpu {
+  color: @on_tertiary_container;
+  background: alpha(@tertiary_container, 0.82);
+}
+
+#cpu {
+  color: @primary;
+}
+
+#memory {
+  color: @secondary;
+}
+
+#network {
+  color: @tertiary;
+}
+
+#network.disconnected {
+  color: @on_error_container;
+  background: @error_container;
+}
+
+#wireplumber {
+  color: @on_secondary_container;
+  background: alpha(@secondary_container, 0.75);
+}
+
+#wireplumber.muted {
+  color: @on_error_container;
+  background: @error_container;
+}
+
+#tray {
+  margin-right: 8px;
+}

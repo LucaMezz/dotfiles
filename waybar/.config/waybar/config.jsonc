@@ -1,0 +1,78 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "spacing": 6,
+
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "custom/gpu",
+    "cpu",
+    "memory",
+    "network",
+    "wireplumber",
+    "tray"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+
+  "clock": {
+    "format": "{:%a %d %b  %H:%M}",
+    "tooltip-format": "{:%A, %d %B %Y}"
+  },
+
+  "cpu": {
+    "format": "CPU {usage}%",
+    "interval": 2,
+    "tooltip": true
+  },
+
+  "memory": {
+    "format": "RAM {}%",
+    "interval": 2,
+    "tooltip": true
+  },
+
+  "network": {
+    "interface": "en*",
+    "format-ethernet": "ETH {ipaddr}",
+    "format-disconnected": "OFFLINE",
+    "tooltip-format": "{ifname} via {gwaddr}"
+  },
+
+"wireplumber": {
+  "format": "{icon} {volume}%",
+  "format-muted": "MUTED",
+  "format-icons": ["VOL ▁", "VOL ▃", "VOL ▅", "VOL ▇"],
+  "tooltip-format": "Volume: {volume}%\nScroll to adjust\nClick to mute\nRight-click for mixer",
+  "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+  "on-click-right": "pavucontrol",
+  "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+  "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+  "max-volume": 150
+},
+
+  "custom/gpu": {
+    "exec": "~/.config/waybar/scripts/gpu",
+    "return-type": "json",
+    "interval": 2,
+    "tooltip": true
+  },
+
+  "tray": {
+    "spacing": 8
+  }
+}
