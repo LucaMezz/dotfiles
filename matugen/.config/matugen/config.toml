@@ -5,3 +5,8 @@ reload_apps = true
 input_path = "~/.config/matugen/templates/waybar-colors.css"
 output_path = "~/.config/waybar/colors.css"
 post_hook = "pkill -SIGUSR2 waybar || true"
+
+[templates.kitty]
+input_path = "~/dotfiles/matugen/.config/matugen/templates/kitty-colors.conf"
+output_path = "~/dotfiles/kitty/.config/kitty/colors.conf"
+post_hook = "kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true"
