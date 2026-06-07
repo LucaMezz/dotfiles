@@ -1,4 +1,10 @@
 # -----------------------------
+# Environment
+# -----------------------------
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# -----------------------------
 # Basic shell options
 # -----------------------------
 
@@ -64,10 +70,18 @@ alias c='clear'
 alias vim='nvim'
 
 # -----------------------------
+# SSH agent / GitHub SSH key
+# -----------------------------
+
+eval "$(keychain --eval --quiet id_ed25519)"
+
+# -----------------------------
 # Plugins
 # Keep these near the bottom.
 # -----------------------------
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="$HOME/.local/bin:$PATH"
+
+# opencode
+export PATH=/home/luca/.opencode/bin:$PATH

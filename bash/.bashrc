@@ -8,3 +8,5 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
+
+eval "$(keychain --eval --quiet id_ed25519)"
