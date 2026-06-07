@@ -1,10 +1,10 @@
-@define-color surface              #16130b;
-@define-color surface-tint         #e3c36c;
-@define-color on-surface           #eae1d4;
-@define-color primary              #e3c36c;
-@define-color on-primary           #3d2f00;
-@define-color primary-container    #584400;
-@define-color on-primary-container #ffe08d;
+@define-color surface              #1a1110;
+@define-color surface-tint         #ffb4a5;
+@define-color on-surface           #f1dfdb;
+@define-color primary              #ffb4a5;
+@define-color on-primary           #561e14;
+@define-color primary-container    #733428;
+@define-color on-primary-container #ffdad3;
 
 * {
   all: unset;
