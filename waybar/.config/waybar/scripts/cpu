@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Sample CPU usage over 0.5s from /proc/stat
+read_stat() {
+    awk '/^cpu / {idle=$5; total=$2+$3+$4+$5+$6+$7+$8; print idle, total}' /proc/stat
+}
+
+prev=$(read_stat)
+sleep 0.5
+curr=$(read_stat)
+
+prev_idle=$(echo "$prev" | awk '{print $1}')
+prev_total=$(echo "$prev" | awk '{print $2}')
+curr_idle=$(echo "$curr" | awk '{print $1}')
+curr_total=$(echo "$curr" | awk '{print $2}')
+
+idle_diff=$((curr_idle - prev_idle))
+total_diff=$((curr_total - prev_total))
+[ "$total_diff" -eq 0 ] && total_diff=1
+usage=$(( (total_diff - idle_diff) * 100 / total_diff ))
+
+# CPU temperature: try k10temp (AMD Tctl) then coretemp (Intel Package)
+temp_raw=""
+for hwmon in /sys/class/hwmon/hwmon*; do
+    name=$(cat "$hwmon/name" 2>/dev/null)
+    if [[ "$name" == "k10temp" || "$name" == "coretemp" ]]; then
+        temp_raw=$(cat "$hwmon/temp1_input" 2>/dev/null)
+        break
+    fi
+done
+
+if [ -n "$temp_raw" ]; then
+    temp=$((temp_raw / 1000))
+    temp_str="${temp}°C"
+else
+    temp_str="N/A"
+fi
+
+printf '{"text":"󰻠 %s%%","tooltip":"Usage: %s%%\\nTemp: %s","class":"normal"}\n' \
+    "$usage" "$usage" "$temp_str"

@@ -13,10 +13,13 @@
   ],
 
   "modules-right": [
+    "custom/updates",
+    "bluetooth",
     "custom/gpu",
-    "cpu",
+    "custom/cpu",
     "memory",
     "network",
+    "idle_inhibitor",
     "wireplumber",
     "tray"
   ],
@@ -34,36 +37,69 @@
     "tooltip-format": "{:%A, %d %B %Y}"
   },
 
-  "cpu": {
-    "format": "CPU {usage}%",
+  "custom/cpu": {
+    "exec": "~/.config/waybar/scripts/cpu",
+    "return-type": "json",
     "interval": 2,
     "tooltip": true
   },
 
   "memory": {
-    "format": "RAM {}%",
+    "format": "󰍛 {}%",
     "interval": 2,
     "tooltip": true
   },
 
   "network": {
     "interface": "en*",
-    "format-ethernet": "ETH {ipaddr}",
-    "format-disconnected": "OFFLINE",
-    "tooltip-format": "{ifname} via {gwaddr}"
+    "format-ethernet": "󰒍",
+    "format-linked": "󰒍",
+    "format-disconnected": "󰒏",
+    "tooltip-format-ethernet": "{ifname}\n  {ipaddr}/{cidr}\n󰮁  {gwaddr}",
+    "tooltip-format-disconnected": "No network"
   },
 
-"wireplumber": {
-  "format": "{icon} {volume}%",
-  "format-muted": "MUTED",
-  "format-icons": ["VOL ▁", "VOL ▃", "VOL ▅", "VOL ▇"],
-  "tooltip-format": "Volume: {volume}%\nScroll to adjust\nClick to mute\nRight-click for mixer",
-  "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-  "on-click-right": "pavucontrol",
-  "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
-  "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-  "max-volume": 150
-},
+  "bluetooth": {
+    "format": "󰂯",
+    "format-connected": "󰂱 {num_connections}",
+    "format-off": "󰂲",
+    "format-disabled": "",
+    "tooltip-format": "Bluetooth on\nNo devices connected",
+    "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "  {device_alias}",
+    "tooltip-format-enumerate-connected-battery": "  {device_alias} ({device_battery_percentage}%)",
+    "on-click": "blueman-manager"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰒲"
+    },
+    "tooltip-format-activated": "Idle inhibitor active",
+    "tooltip-format-deactivated": "Idle inhibitor off"
+  },
+
+  "custom/updates": {
+    "exec": "~/.config/waybar/scripts/updates",
+    "return-type": "json",
+    "interval": 1800,
+    "on-click": "kitty sh -c 'paru -Syu; echo; read -p \"Done — press Enter to close.\"'",
+    "tooltip": true
+  },
+
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 {volume}%",
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+    "tooltip-format": "Volume: {volume}%\nScroll to adjust\nClick to mute\nRight-click for mixer",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "max-volume": 150
+  },
 
   "custom/gpu": {
     "exec": "~/.config/waybar/scripts/gpu",

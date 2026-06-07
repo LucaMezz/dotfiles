@@ -58,9 +58,12 @@ tooltip {
 
 #clock,
 #custom-gpu,
-#cpu,
+#custom-cpu,
+#custom-updates,
+#idle-inhibitor,
 #memory,
 #network,
+#bluetooth,
 #wireplumber,
 #tray {
   margin: 5px 3px;
@@ -81,7 +84,7 @@ tooltip {
   background: alpha(@tertiary_container, 0.82);
 }
 
-#cpu {
+#custom-cpu {
   color: @primary;
 }
 
@@ -90,12 +93,44 @@ tooltip {
 }
 
 #network {
-  color: @tertiary;
+  color: @on_surface;
+  padding: 0 11px 0 7px;
 }
 
 #network.disconnected {
+  opacity: 0.4;
+}
+
+#bluetooth {
+  color: @on_surface;
+}
+
+#bluetooth.connected {
+  color: @on_primary_container;
+  background: alpha(@primary_container, 0.82);
+}
+
+#bluetooth.off,
+#bluetooth.disabled {
+  opacity: 0.35;
+}
+
+#idle-inhibitor {
+  padding: 0 11px;
+}
+
+#idle-inhibitor.activated {
+  color: @on_tertiary_container;
+  background: @tertiary_container;
+}
+
+#custom-updates.up-to-date {
+  opacity: 0.35;
+}
+
+#custom-updates.pending {
   color: @on_error_container;
-  background: @error_container;
+  background: alpha(@error_container, 0.82);
 }
 
 #wireplumber {

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+PIDFILE="/tmp/waybar-idle-inhibitor.pid"
+
+is_active() {
+    [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null
+}
+
+toggle() {
+    if is_active; then
+        kill "$(cat "$PIDFILE")" 2>/dev/null
+        rm -f "$PIDFILE"
+    else
+        systemd-inhibit --what=idle --who=waybar --why="Manually inhibited" sleep infinity &
+        echo $! > "$PIDFILE"
+    fi
+    pkill -RTMIN+8 waybar
+}
+
+status() {
+    if is_active; then
+        printf '{"text":"󰅶","tooltip":"Idle inhibitor: active","class":"activated"}\n'
+    else
+        printf '{"text":"󰒲","tooltip":"Idle inhibitor: off","class":"deactivated"}\n'
+    fi
+}
+
+case "${1}" in
+    toggle) toggle ;;
+    *)      status ;;
+esac

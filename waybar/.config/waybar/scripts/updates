@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+pacman_count=0
+aur_count=0
+flatpak_count=0
+
+# Pacman updates via checkupdates (pacman-contrib) — safe, no db lock
+if command -v checkupdates &>/dev/null; then
+    pacman_count=$(checkupdates 2>/dev/null | wc -l)
+fi
+
+# AUR updates (paru preferred, fall back to yay)
+if command -v paru &>/dev/null; then
+    aur_count=$(paru -Qua 2>/dev/null | wc -l)
+elif command -v yay &>/dev/null; then
+    aur_count=$(yay -Qua 2>/dev/null | wc -l)
+fi
+
+# Flatpak updates
+if command -v flatpak &>/dev/null; then
+    flatpak_count=$(flatpak remote-ls --updates 2>/dev/null | wc -l)
+fi
+
+total=$((pacman_count + aur_count + flatpak_count))
+
+if [ "$total" -eq 0 ]; then
+    printf '{"text":"","tooltip":"System up to date","class":"up-to-date"}\n'
+else
+    tooltip="Updates available:"
+    [ "$pacman_count" -gt 0 ] && tooltip+="\\n󰣇 Pacman: $pacman_count"
+    [ "$aur_count" -gt 0 ]    && tooltip+="\\n AUR: $aur_count"
+    [ "$flatpak_count" -gt 0 ] && tooltip+="\\n Flatpak: $flatpak_count"
+    printf '{"text":"󰚰 %s","tooltip":"%s","class":"pending"}\n' "$total" "$tooltip"
+fi
