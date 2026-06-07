@@ -18,3 +18,8 @@ output_path = "~/.config/rofi/colors.rasi"
 [templates.walker]
 input_path = "~/.config/matugen/templates/walker-colors.css"
 output_path = "~/dotfiles/walker/.config/walker/themes/matugen/style.css"
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.sh"
+output_path = "~/.config/hypr/colors.sh"
+post_hook = "bash ~/.config/hypr/colors.sh"

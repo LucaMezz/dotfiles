@@ -49,11 +49,12 @@ local menu        = "walker"
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
-hl.on("hyprland.start", function () 
+hl.on("hyprland.start", function ()
 	hl.exec_cmd("elephant")
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
   hl.exec_cmd("waybar & hyprpaper & zen")
+  hl.exec_cmd("[ -f ~/.config/hypr/colors.sh ] && bash ~/.config/hypr/colors.sh || true")
 end)
 
 
@@ -100,7 +101,7 @@ hl.config({
 
         col = {
             active_border   = { colors = {"rgba(888888ee)", "rgba(aaaaaaee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            inactive_border = "rgba(55555555)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
