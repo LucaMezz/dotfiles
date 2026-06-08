@@ -37,6 +37,20 @@ SAVEHIST=10000
 
 setopt PROMPT_SUBST
 
+# Nord fallback palette; overridden by matugen-generated ~/.config/zsh/colors.zsh
+ZSH_BG1="#2E3440"
+ZSH_BG2="#3b4252"
+ZSH_BG3="#4c566a"
+ZSH_ACCENT="#5E81AC"
+ZSH_FG="#E5E9F0"
+ZSH_FG_ON_ACCENT="#ECEFF4"
+[[ -f ~/.config/zsh/colors.zsh ]] && source ~/.config/zsh/colors.zsh
+
+hex_to_rgb() {
+  local hex="${1#'#'}"
+  printf "%d;%d;%d" $(( 16#${hex:0:2} )) $(( 16#${hex:2:2} )) $(( 16#${hex:4:2} ))
+}
+
 git_branch() {
   local branch
   branch=$(git symbolic-ref --short HEAD 2>/dev/null) || \
@@ -45,11 +59,10 @@ git_branch() {
   echo "  $branch"
 }
 
-# set up prompt
 NEWLINE=$'\n'
-PROMPT="%K{#2E3440}%F{#E5E9F0}\$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %K{#5E81AC}%F{#ECEFF4}\$(git_branch) %f%k ❯ "
+PROMPT='%K{$ZSH_BG1}%F{$ZSH_FG}$(date +%_I:%M%P) %K{$ZSH_BG2}%F{$ZSH_FG} %n %K{$ZSH_BG3} %~ %K{$ZSH_ACCENT}%F{$ZSH_FG_ON_ACCENT}$(git_branch) %f%k ❯ '
 
-echo -e "\033[48;2;46;52;64;38;2;216;222;233m $0 \033[0m\033[48;2;59;66;82;38;2;216;222;233m $(uptime -p | cut -c 4-) \033[0m\033[48;2;76;86;106;38;2;216;222;233m $(uname -r) \033[0m ${NEWLINE}" # nord theme
+echo -e "\033[48;2;$(hex_to_rgb $ZSH_BG1);38;2;$(hex_to_rgb $ZSH_FG)m $0 \033[0m\033[48;2;$(hex_to_rgb $ZSH_BG2);38;2;$(hex_to_rgb $ZSH_FG)m $(uptime -p | cut -c 4-) \033[0m\033[48;2;$(hex_to_rgb $ZSH_BG3);38;2;$(hex_to_rgb $ZSH_FG)m $(uname -r) \033[0m ${NEWLINE}"
 
 # -----------------------------
 # Completion

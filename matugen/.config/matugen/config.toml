@@ -28,3 +28,7 @@ post_hook = "ags quit || true"
 input_path = "~/.config/matugen/templates/hyprland-colors.sh"
 output_path = "~/.config/hypr/colors.sh"
 post_hook = "bash ~/.config/hypr/colors.sh"
+
+[templates.zsh]
+input_path = "~/.config/matugen/templates/zsh-colors.zsh"
+output_path = "~/.config/zsh/colors.zsh"
