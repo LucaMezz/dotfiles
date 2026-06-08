@@ -13,3 +13,9 @@
 secrets/
 .env
 .env.*
+
+# Matugen-generated color files (regenerated on every wallpaper change)
+kitty/.config/kitty/colors.conf
+walker/.config/walker/themes/matugen/style.css
+waybar/.config/waybar/colors.css
+ags/.config/ags/colors.css

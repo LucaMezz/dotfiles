@@ -53,7 +53,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # Keybindings
 # -----------------------------
 
-bindkey -e                    # emacs-style keys
+bindkey -v
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
@@ -68,6 +68,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias c='clear'
 alias vim='nvim'
+alias ags-reload='pkill -f "ags.js" 2>/dev/null; sleep 0.3 && ags run --gtk 4 &'
+alias zen='flatpak run app.zen_browser.zen &> /dev/null'
 
 # -----------------------------
 # SSH agent / GitHub SSH key
@@ -85,3 +87,4 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # opencode
 export PATH=/home/luca/.opencode/bin:$PATH
+source /usr/share/nvm/init-nvm.sh
