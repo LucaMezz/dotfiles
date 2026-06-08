@@ -9,7 +9,7 @@ import {
   runMatugen,
 } from "../Settings";
 
-const WALLPAPER_DIR = `${GLib.get_home_dir()}/Wallpapers`;
+const WALLPAPER_DIR = `${GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)}/wallpapers`;
 const THUMB_DIR = `${GLib.get_user_cache_dir()}/ags/wallpaper-thumbs`;
 
 // Ensure thumbnail cache dir exists

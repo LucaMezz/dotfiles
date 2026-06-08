@@ -3,7 +3,7 @@ set -euo pipefail
 
 # shellcheck source=/dev/null
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" ] && . "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
-WALLPAPER_DIR="${WALLPAPER_DIR:-${XDG_PICTURES_DIR:-$HOME/pictures}/wallpaper}"
+WALLPAPER_DIR="${WALLPAPER_DIR:-${XDG_PICTURES_DIR:-$HOME/pictures}/wallpapers}"
 WALLPAPER_SET="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/wallpaper-set.sh"
 
 wallpaper=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f \

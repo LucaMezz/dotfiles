@@ -2,7 +2,7 @@
 
 # shellcheck source=/dev/null
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" ] && . "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
-WALLPAPER_DIR="${WALLPAPER_DIR:-${XDG_PICTURES_DIR:-$HOME/pictures}/wallpaper}"
+WALLPAPER_DIR="${WALLPAPER_DIR:-${XDG_PICTURES_DIR:-$HOME/pictures}/wallpapers}"
 THUMB_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-thumbs"
 WALLPAPER_SET="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/wallpaper-set.sh"
 
