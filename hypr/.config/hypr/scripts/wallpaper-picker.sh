@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="${WALLPAPER_DIR:-$HOME/Pictures/wallpaper}"
+# shellcheck source=/dev/null
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" ] && . "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
+WALLPAPER_DIR="${WALLPAPER_DIR:-${XDG_PICTURES_DIR:-$HOME/pictures}/wallpaper}"
 THUMB_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-thumbs"
-WALLPAPER_SET="$HOME/.config/hypr/scripts/wallpaper-set.sh"
+WALLPAPER_SET="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/wallpaper-set.sh"
 
 mkdir -p "$THUMB_DIR"
 
@@ -30,7 +32,7 @@ selected=$(
         printf '%s\000icon\037%s\n' "$fname" "$thumb"
     done | rofi \
         -dmenu -i -show-icons \
-        -theme "$HOME/.config/rofi/wallpaper.rasi" \
+        -theme "${XDG_CONFIG_HOME:-$HOME/.config}/rofi/wallpaper.rasi" \
         -p "󰸉  "
 )
 

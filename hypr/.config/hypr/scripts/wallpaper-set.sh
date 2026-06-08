@@ -2,7 +2,7 @@
 set -euo pipefail
 
 WALLPAPER="${1:?Usage: wallpaper-set.sh <path-to-wallpaper>}"
-HYPRPAPER_CONF="$HOME/.config/hypr/hyprpaper.conf"
+HYPRPAPER_CONF="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprpaper.conf"
 
 if [[ ! -f "$WALLPAPER" ]]; then
     echo "Error: file not found: $WALLPAPER" >&2

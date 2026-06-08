@@ -27,7 +27,8 @@ setopt extended_glob
 # History
 # -----------------------------
 
-HISTFILE="$HOME/.zsh_history"
+mkdir -p "${XDG_STATE_HOME}/zsh"
+HISTFILE="${XDG_STATE_HOME}/zsh/history"
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -37,28 +38,28 @@ SAVEHIST=10000
 
 setopt PROMPT_SUBST
 
-# Nord fallback palette; overridden by matugen-generated ~/.config/zsh/colors.zsh
+# Nord fallback palette; overridden by matugen-generated colors.zsh
 ZSH_BG1="#2E3440"
 ZSH_BG2="#3b4252"
 ZSH_BG3="#4c566a"
 ZSH_ACCENT="#5E81AC"
 ZSH_FG="#E5E9F0"
 ZSH_FG_ON_ACCENT="#ECEFF4"
-[[ -f ~/.config/zsh/colors.zsh ]] && source ~/.config/zsh/colors.zsh
-_zsh_colors_mtime=$(stat -c %Y ~/.config/zsh/colors.zsh 2>/dev/null)
+[[ -f "${XDG_CONFIG_HOME}/zsh/colors.zsh" ]] && source "${XDG_CONFIG_HOME}/zsh/colors.zsh"
+_zsh_colors_mtime=$(stat -c %Y "${XDG_CONFIG_HOME}/zsh/colors.zsh" 2>/dev/null)
 
 TRAPUSR1() {
-  source ~/.config/zsh/colors.zsh 2>/dev/null
-  _zsh_colors_mtime=$(stat -c %Y ~/.config/zsh/colors.zsh 2>/dev/null)
+  source "${XDG_CONFIG_HOME}/zsh/colors.zsh" 2>/dev/null
+  _zsh_colors_mtime=$(stat -c %Y "${XDG_CONFIG_HOME}/zsh/colors.zsh" 2>/dev/null)
   zle && zle reset-prompt
 }
 
 _maybe_reload_colors() {
   local mtime
-  mtime=$(stat -c %Y ~/.config/zsh/colors.zsh 2>/dev/null) || return
+  mtime=$(stat -c %Y "${XDG_CONFIG_HOME}/zsh/colors.zsh" 2>/dev/null) || return
   [[ $mtime != $_zsh_colors_mtime ]] || return
   _zsh_colors_mtime=$mtime
-  source ~/.config/zsh/colors.zsh
+  source "${XDG_CONFIG_HOME}/zsh/colors.zsh"
 }
 precmd_functions+=(_maybe_reload_colors)
 
@@ -72,7 +73,7 @@ git_branch() {
   branch=$(git symbolic-ref --short HEAD 2>/dev/null) || \
   branch=$(git rev-parse --short HEAD 2>/dev/null) || return
 
-  echo "  $branch"
+  echo "  $branch"
 }
 
 NEWLINE=$'\n'
@@ -87,8 +88,8 @@ echo -e "\033[48;2;$(hex_to_rgb $ZSH_BG1);38;2;$(hex_to_rgb $ZSH_FG)m $0 \033[0m
 autoload -Uz compinit
 
 # Cache completions for faster startup
-ZSH_COMPDUMP="$HOME/.cache/zsh/.zcompdump"
-mkdir -p "$HOME/.cache/zsh"
+ZSH_COMPDUMP="${XDG_CACHE_HOME}/zsh/.zcompdump"
+mkdir -p "${XDG_CACHE_HOME}/zsh"
 
 # Only check completion security once per day
 if [[ -n "$ZSH_COMPDUMP"(#qN.mh+24) ]]; then
@@ -140,4 +141,3 @@ eval "$(keychain --eval --quiet id_ed25519)"
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-

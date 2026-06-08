@@ -16,6 +16,7 @@ PACKAGES=(
   rofi
   ags
   btop
+  xdg
 )
 
 if ! command -v stow >/dev/null 2>&1; then

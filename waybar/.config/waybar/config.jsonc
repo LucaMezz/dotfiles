@@ -48,13 +48,15 @@
     "exec": "~/.config/waybar/scripts/cpu",
     "return-type": "json",
     "interval": 2,
-    "tooltip": true
+    "tooltip": true,
+    "on-click": "kitty --title htop sh -c 'htop; read'"
   },
 
   "memory": {
     "format": "󰍛 {}%",
     "interval": 2,
-    "tooltip": true
+    "tooltip": true,
+    "on-click": "kitty --title htop sh -c 'htop; read'"
   },
 
   "network": {
@@ -112,7 +114,8 @@
     "exec": "~/.config/waybar/scripts/gpu",
     "return-type": "json",
     "interval": 2,
-    "tooltip": true
+    "tooltip": true,
+    "on-click": "kitty --title htop sh -c 'htop; read'"
   },
 
   "tray": {
