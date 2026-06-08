@@ -15,6 +15,7 @@ PACKAGES=(
   matugen
   rofi
   ags
+  btop
 )
 
 if ! command -v stow >/dev/null 2>&1; then
