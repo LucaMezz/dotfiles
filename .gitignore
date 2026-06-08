@@ -19,3 +19,5 @@ kitty/.config/kitty/colors.conf
 walker/.config/walker/themes/matugen/style.css
 waybar/.config/waybar/colors.css
 ags/.config/ags/colors.css
+hypr/.config/hypr/colors.sh
+hypr/.config/hypr/hyprpaper.conf
