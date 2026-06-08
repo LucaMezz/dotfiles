@@ -125,6 +125,7 @@ alias c='clear'
 alias vim='nvim'
 alias ags-reload='pkill -f "ags.js" 2>/dev/null; sleep 0.3 && ags run --gtk 4 &'
 alias zen='flatpak run app.zen_browser.zen &> /dev/null'
+alias ff='fastfetch'
 
 # -----------------------------
 # SSH agent / GitHub SSH key
