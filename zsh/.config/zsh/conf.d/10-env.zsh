@@ -1,6 +1,9 @@
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/home/luca/.opencode/bin:$PATH"
 
+# bat theme
+export BAT_THEME="Catppuccin Mocha"
+
 # nvm
 source /usr/share/nvm/init-nvm.sh
 
