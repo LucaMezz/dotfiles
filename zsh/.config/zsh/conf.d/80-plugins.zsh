@@ -10,7 +10,7 @@ _zplugin_load() {
     git clone --depth=1 "https://github.com/${1}/${2}" "$plugin_path" \
       || { echo "ERROR: failed to install ${2}" >&2; return 1; }
   fi
-  source "${plugin_path}/${2}.plugin.zsh"
+  source "${plugin_path}/${3:-${2}.plugin.zsh}"
 }
 
 zplugin-update() {
@@ -23,5 +23,6 @@ zplugin-update() {
 
 _zplugin_load zsh-users zsh-autosuggestions
 _zplugin_load zsh-users zsh-history-substring-search
-_zplugin_load jeffreytse zsh-vi-mode
 _zplugin_load zdharma-continuum fast-syntax-highlighting
+_zplugin_load junegunn fzf-git.sh fzf-git.sh
+bindkey '^G' undefined-key  # prevent send-break from consuming the ^G chord prefix

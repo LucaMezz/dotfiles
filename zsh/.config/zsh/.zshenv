@@ -32,3 +32,4 @@ export PATH="$HOME/.local/bin:$PATH"
 # Pager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
+export MANWIDTH="${MANWIDTH:-999}"
