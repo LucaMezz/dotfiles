@@ -49,14 +49,14 @@
     "return-type": "json",
     "interval": 2,
     "tooltip": true,
-    "on-click": "kitty --title htop sh -c 'htop; read'"
+    "on-click": "kitty --title btop sh -c 'btop; read'"
   },
 
   "memory": {
     "format": "󰍛 {}%",
     "interval": 2,
     "tooltip": true,
-    "on-click": "kitty --title htop sh -c 'htop; read'"
+    "on-click": "kitty --title btop sh -c 'btop; read'"
   },
 
   "network": {
@@ -115,7 +115,7 @@
     "return-type": "json",
     "interval": 2,
     "tooltip": true,
-    "on-click": "kitty --title htop sh -c 'htop; read'"
+    "on-click": "kitty --title btop sh -c 'btop; read'"
   },
 
   "tray": {
