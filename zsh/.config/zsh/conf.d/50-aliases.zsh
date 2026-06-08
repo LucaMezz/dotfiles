@@ -7,7 +7,7 @@ alias tree='eza --tree --icons'
 
 compdef eza=ls
 
-alias cat='bat'
+# alias cat='bat' # Replacement for cat. Can cause issues since it prints line numbers, etc.
 
 alias ..='cd ..'
 alias ...='cd ../..'
