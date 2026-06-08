@@ -46,3 +46,8 @@ function y() {
   fi
   rm -f -- "$tmp"
 }
+
+# Command correction
+if command -v thefuck >/dev/null 2>&1; then
+  eval "$(thefuck --alias fk)"
+fi
