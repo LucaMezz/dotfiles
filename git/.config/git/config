@@ -1,0 +1,17 @@
+[init]
+	defaultBranch = main
+[user]
+	email = lucamezza4@gmail.com
+	name = Luca Mezzavilla
+[core]
+	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = OneHalfDark
+[merge]
+	conflictStyle = zdiff3
