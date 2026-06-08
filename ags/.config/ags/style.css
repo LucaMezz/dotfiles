@@ -1,0 +1,49 @@
+@import "colors.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+}
+
+window#sidebar {
+    background: transparent;
+}
+
+.sidebar-strip {
+    min-width: 4px;
+    background: transparent;
+}
+
+/* Width is set dynamically via set_size_request() — 300px open, 0 closed. */
+.sidebar-clip {
+}
+
+.sidebar {
+    background: alpha(@background, 0.86);
+    border-right: 1px solid alpha(@surface_tint, 0.28);
+    padding: 14px 12px;
+    min-width: 300px;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-300px);
+}
+
+.sidebar.visible {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid alpha(@surface_tint, 0.2);
+}
+
+.sidebar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: @on_surface;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-content {
+    padding-top: 10px;
+}

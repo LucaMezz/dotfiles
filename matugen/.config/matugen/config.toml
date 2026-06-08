@@ -19,6 +19,11 @@ output_path = "~/.config/rofi/colors.rasi"
 input_path = "~/.config/matugen/templates/walker-colors.css"
 output_path = "~/dotfiles/walker/.config/walker/themes/matugen/style.css"
 
+[templates.ags]
+input_path = "~/.config/matugen/templates/ags-colors.css"
+output_path = "~/.config/ags/colors.css"
+post_hook = "ags quit || true"
+
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.sh"
 output_path = "~/.config/hypr/colors.sh"
