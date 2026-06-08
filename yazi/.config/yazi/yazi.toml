@@ -1,0 +1,14 @@
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true, desc = "nvim" },
+]
+open_pdf = [
+  { run = 'zathura "$@"', desc = "zathura" },
+]
+
+[open]
+rules = [
+  { mime = "application/pdf", use = "open_pdf" },
+  { mime = "application/postscript", use = "open_pdf" },
+  { mime = "image/vnd.djvu", use = "open_pdf" },
+]

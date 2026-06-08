@@ -17,6 +17,7 @@ PACKAGES=(
   ags
   btop
   xdg
+  yazi
 )
 
 if ! command -v stow >/dev/null 2>&1; then
