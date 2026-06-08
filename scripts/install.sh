@@ -13,6 +13,8 @@ PACKAGES=(
   hypr
   waybar
   matugen
+  rofi
+  ags
 )
 
 if ! command -v stow >/dev/null 2>&1; then
@@ -30,7 +32,13 @@ echo
 for package in "${PACKAGES[@]}"; do
   if [[ -d "$package" ]]; then
     echo "Stowing $package..."
-    stow --verbose --target="$TARGET_DIR" "$package"
+    # rofi needs --no-folding so matugen-generated colors.rasi lands as a plain
+    # file in ~/.config/rofi/ rather than being symlinked into the dotfiles repo
+    if [[ "$package" == "rofi" ]]; then
+      stow --no-folding --verbose --target="$TARGET_DIR" "$package"
+    else
+      stow --verbose --target="$TARGET_DIR" "$package"
+    fi
   else
     echo "Skipping $package because the directory does not exist."
   fi
