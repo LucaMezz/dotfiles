@@ -1,49 +1,1944 @@
-@import "colors.css";
+@import url("colors.css");
+/* =============================================================================
+   SHARED HOVER PATTERNS
+   Selectors that produce identical output are grouped here once instead of
+   being repeated throughout the file.
+   ============================================================================= */
+
+/* Primary fill: bg + border + text → primary colours */
+* {
+  outline: none;
+}
+/* Targets the container you added */
+.dropdown {
+  margin-top: 4px;
+}
+popover {
+  all: unset;
+}
+/* Forces the hidden popover to respect the clean look */
+.tonal-dropdown popover contents {
+  padding: 0;
+  margin: 0;
+  border-radius: 12px;
+}
+
+.tonal-dropdown popover listview {
+  padding: 4px;
+}
+.clock:hover image,
+#settings-button:hover,
+#notification-button:hover,
+.notification-button:hover,
+.battery button:hover,
+.audio-output button:hover,
+.tray-item button:hover,
+.wireless button:hover,
+.bar-button:hover,
+.tonal-dropdown:hover,
+dropdown:hover,
+combobox:hover,
+button:hover,
+#app-item:hover,
+#app-item:focus,
+.sidebar-tab:hover,
+.sidebar-tab.active,
+.network-item:hover,
+.bt-row:hover,
+.power-profile-button:hover,
+.power-profile-button.active,
+.cal-today-btn:hover,
+.cal-open-day-btn:hover,
+.control-button:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--on_primary);
+}
+
+/* on_primary text for child elements inside primary-filled containers */
+.clock:hover image,
+#settings-button:hover image,
+#notification-button:hover image,
+.notification-button:hover image,
+.battery button:hover image,
+.audio-output button:hover image,
+.tray-item button:hover image,
+.wireless button:hover image,
+.tonal-dropdown:hover label,
+.tonal-dropdown:hover arrow,
+dropdown:hover label,
+dropdown:hover arrow,
+combobox:hover label,
+combobox:hover arrow,
+button:hover label,
+button:hover image,
+popover listview row:hover modelbutton,
+popover listview row:selected modelbutton,
+popover listview row:checked modelbutton,
+popover listview row:hover label,
+popover listview row:selected label,
+popover listview row:checked label,
+popover listview row:hover image,
+popover listview row:selected image,
+popover listview row:checked image,
+#app-item:hover label,
+#app-item:focus label,
+#app-item:hover image,
+#app-item:focus image,
+.sidebar-tab:hover image,
+.sidebar-tab.active image,
+.network-item:hover label,
+.network-item:hover image,
+.bt-row:hover .bt-device-name,
+.bt-row:hover image,
+.bt-row:hover .bt-icon-btn image,
+.notification-item:hover label,
+.notification-item:hover .notification-body,
+.notification-item:hover .notification-app,
+.qs-tile:hover label,
+.qs-tile:hover image,
+.control-button:hover label,
+.control-button.play-pause:hover label,
+.cal-today-btn:hover label,
+.cal-open-day-btn:hover label {
+  color: var(--on_primary);
+}
+
+/* qs-tile + play-pause: only bg+border fill (text handled by :hover label above) */
+.qs-tile:hover,
+.control-button.play-pause:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Error fill: bg + border + text → error colours */
+.danger-button:hover,
+.settings-close-btn:hover,
+.notification-center .clear-all:hover,
+.dismiss-button:hover,
+.notification-popup-close:hover,
+.sidebar-close-btn:hover,
+.clear-all:hover,
+.cal-dlg-danger:hover {
+  background-color: var(--error);
+  border-color: var(--error);
+  color: var(--on_error);
+}
+
+.bt-danger:hover image,
+.clear-all:hover label {
+  color: var(--on_error);
+}
+
+/* primary_container fill on hover */
+.cal-nav-btn:hover,
+.cal-dlg-save:hover,
+.cal-browse-btn:hover {
+  background: var(--primary_container);
+  border-color: var(--primary);
+  color: var(--on_primary_container);
+}
+
+/* surface_container_high on hover */
+.back-button:hover,
+.cal-cell:hover,
+.cal-icon-btn:hover,
+.qs-bar-btn:hover {
+  background: var(--surface_container);
+}
+
+/* surface_container + primary border on hover */
+.cal-ev-row:hover,
+.dv-ev-card:hover {
+  background: var(--surface_container);
+  border-color: var(--primary);
+}
+
+/* surface_container_low on hover */
+.cal-ev-chip:hover,
+.dv-slot:hover {
+  background: var(--surface_container_low);
+}
+
+/* =============================================================================
+   GLOBAL
+   ============================================================================= */
+
+window,
+#sidebar,
+#launcher,
+.notification-popups {
+  background-color: transparent;
+}
 
 * {
-    font-family: "JetBrainsMono Nerd Font", sans-serif;
-    font-size: 13px;
+  font-size: 14px;
 }
 
-window#sidebar {
-    background: transparent;
+image {
+  -gtk-icon-size: 16px;
+  color: @primary;
 }
 
-.sidebar-strip {
-    min-width: 4px;
-    background: transparent;
+/* =============================================================================
+   BAR
+   ============================================================================= */
+
+.bar {
+  background-color: transparent;
+  padding: 0px;
 }
 
-/* Width is set dynamically via set_size_request() — 300px open, 0 closed. */
-.sidebar-clip {
+.clock,
+#settings-button,
+#notification-button,
+.notification-button,
+.workspaces-container,
+.battery button,
+.audio-output button,
+.tray-item button,
+.wireless button,
+.bar-button {
+  min-height: 24px;
+  margin: 0 4px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: var(--surface_container);
+  border: 1.5px solid var(--outline_variant);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
+
+.clock,
+#settings-button,
+#notification-button,
+.battery button,
+.audio-output button,
+.tray-item button,
+.wireless button {
+  color: var(--primary);
+  padding-top: 2px;
+}
+
+.clock label,
+#settings-button label,
+#notification-button label,
+.battery button label,
+.audio-output button label,
+.tray-item button label,
+.wireless button label {
+  color: var(--primary);
+}
+
+.clock image,
+#settings-button image,
+#notification-button image,
+.battery button image,
+.audio-output button image,
+.tray-item button image,
+.wireless button image {
+  color: var(--primary);
+}
+
+/* =============================================================================
+   WORKSPACES
+   ============================================================================= */
+
+.workspaces-container {
+  min-height: 24px;
+}
+
+.dot {
+  min-width: 5px;
+  min-height: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: var(--on_surface_variant);
+  opacity: 0.3;
+  transition: all 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+
+.dot.active {
+  min-width: 20px;
+  background-color: var(--primary);
+  opacity: 1;
+}
+
+/* =============================================================================
+   FORM ELEMENTS
+   ============================================================================= */
+
+entry {
+  background-color: var(--surface_container_highest);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--on_surface);
+  caret-color: var(--primary);
+}
+
+entry:focus {
+  border-color: var(--primary);
+}
+
+scale trough {
+  background-color: var(--surface_container_highest);
+  border-radius: 10px;
+  min-height: 8px;
+}
+
+scale highlight {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+scale slider {
+  background-color: var(--surface_container_highest);
+  border: 2px solid var(--primary);
+  border-radius: 100%;
+  min-width: 16px;
+  min-height: 16px;
+  margin: -4px;
+}
+
+levelbar {
+  min-width: 150px;
+  min-height: 10px;
+}
+
+levelbar trough {
+  background-color: var(--surface_container_highest);
+  border-radius: 10px;
+  min-height: 10px;
+  padding: 2px;
+}
+
+levelbar block {
+  background-color: var(--primary);
+  border-radius: 6px;
+  min-height: 10px;
+}
+
+levelbar block.empty {
+  background-color: transparent;
+}
+
+switch {
+  border-radius: 20px;
+  outline: none;
+}
+
+switch:checked {
+  background-color: var(--primary);
+}
+
+.tonal-dropdown,
+dropdown,
+combobox {
+  background: var(--surface_container);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 0;
+  min-height: 20px;
+  color: var(--primary);
+  font-size: 11px;
+  transition: all 0.2s ease;
+}
+
+.tonal-dropdown label,
+dropdown label,
+combobox label {
+  color: var(--primary);
+  font-size: 11px;
+}
+
+.tonal-dropdown > button,
+dropdown > button,
+combobox > button {
+  background: transparent;
+  border: none;
+  padding: 0 6px;
+  min-height: 20px;
+  color: var(--primary);
+  box-shadow: none;
+}
+
+.tonal-dropdown arrow,
+dropdown arrow,
+combobox arrow {
+  color: var(--primary);
+  -gtk-icon-size: 10px;
+}
+
+/* =============================================================================
+   BUTTONS
+   ============================================================================= */
+
+.danger-button {
+  background: transparent;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--error);
+  transition: all 0.2s ease;
+}
+
+/* =============================================================================
+   SCROLLBAR
+   ============================================================================= */
+
+scrollbar {
+  background: transparent;
+}
+
+scrollbar slider {
+  background: var(--outline_variant);
+  border-radius: 20px;
+  min-width: 4px;
+  min-height: 20px;
+  margin: 2px;
+}
+
+scrollbar slider:hover {
+  background-color: var(--primary);
+}
+
+/* =============================================================================
+   SPINNER
+   ============================================================================= */
+
+spinner {
+  color: var(--primary);
+  margin-right: 8px;
+  -gtk-icon-size: 16px;
+}
+
+/* =============================================================================
+   POPOVERS (Ultra Slim & Clean)
+   ============================================================================= */
+
+popover > contents {
+  background-color: var(--surface);
+  border: 1px solid var(--outline_variant);
+  border-radius: 12px;
+  padding: 0; /* Removed padding to stop the 'huge box' effect */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  margin: 4px;
+}
+
+/* This targets the container specifically used in your dropdowns */
+.popover-box {
+  padding: 4px; /* Minimal padding inside the box */
+  min-width: 180px;
+}
+
+popover listview {
+  background-color: transparent;
+  border: none;
+}
+
+popover listview row {
+  background: transparent;
+  border-radius: 6px;
+  margin: 1px 0;
+  padding: 6px 10px;
+  color: var(--on_surface); /* Explicitly set base color */
+  transition: background 0.15s ease;
+}
+
+/* Selected/Hovered items */
+popover listview row:hover {
+  background-color: var(--surface_container_highest);
+}
+
+popover listview row:selected,
+popover listview row:checked {
+  background-color: var(--primary);
+  color: var(--on_primary);
+}
+
+/* Ensure the label inside the row respects the selection color */
+popover listview row:selected label,
+popover listview row:checked label,
+popover listview row:hover label {
+  color: inherit; /* This makes it take the row's color */
+}
+
+popover listview row modelbutton {
+  background: transparent;
+  padding: 0;
+  min-height: 28px;
+}
+/* =============================================================================
+   VOLUME POPUP
+   ============================================================================= */
+
+.VolumePopup .container {
+  background-color: var(--surface);
+  border: 1.5px solid var(--primary);
+  border-radius: 20px;
+  padding: 16px 24px;
+  margin-bottom: 48px;
+}
+
+.VolumePopup image {
+  color: var(--primary);
+  -gtk-icon-size: 20px;
+  margin-right: 12px;
+}
+
+/* =============================================================================
+   LAUNCHER
+   ============================================================================= */
+
+#launcher-content {
+  background-color: var(--surface);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 50px;
+  min-width: 500px;
+}
+
+#search-entry {
+  background-color: var(--surface_container_high);
+  border: 1.5px solid var(--outline);
+  border-radius: 10px;
+  padding: 12px 15px;
+  color: var(--on_surface);
+  font-size: 14px;
+}
+
+#results-container {
+  margin-top: 8px;
+}
+
+#results-container separator {
+  background-color: transparent;
+  min-height: 0;
+  margin: 0;
+}
+
+#app-item {
+  background-color: transparent;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--on_surface);
+  transition: all 0.2s ease;
+}
+
+#app-item label {
+  font-weight: 500;
+  color: var(--primary);
+}
+
+#app-item image {
+  -gtk-icon-size: 32px;
+  margin-right: 12px;
+  color: var(--primary);
+}
+
+/* =============================================================================
+   SETTINGS WINDOW
+   ============================================================================= */
+
+.SettingsWindow {
+  background-color: transparent;
+}
+
+.settings-container {
+  background-color: var(--surface);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 24px;
+  padding: 12px;
+}
+
+.settings-sidebar {
+  padding: 16px;
+  background-color: var(--surface_container_low);
+}
+
+.settings-sidebar-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.sidebar-tab {
+  background: var(--surface_container);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-height: 36px;
+  color: var(--on_surface_variant);
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.sidebar-tab.active {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-main-content {
+  padding: 24px;
+}
+
+.settings-main-content scrolledwindow {
+  padding-right: 8px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.settings-card {
+  background-color: var(--surface_container_low);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.settings-card separator {
+  background-color: var(--outline_variant);
+  min-height: 1px;
+  margin: 8px 0;
+}
+
+.dim-label {
+  color: var(--on_surface_variant);
+}
+
+.settings-close-btn {
+  background: var(--surface_container_highest);
+  border: 1.5px solid var(--primary);
+  border-radius: 12px;
+  padding: 8px 16px;
+  color: var(--primary);
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+/* =============================================================================
+   NETWORK & BLUETOOTH
+   ============================================================================= */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-button.scanning image {
+  animation: spin 1s linear infinite;
+}
+
+.network-item,
+.bt-row {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: @on_surface;
+  margin-bottom: 3px;
+  transition: all 0.2s ease;
+}
+
+.network-item.connected,
+.bt-row.bt-connected {
+  background: alpha(@primary_container, 0.88);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  color: @on_primary_container;
+}
+
+.network-item.connected label.connected-label,
+.bt-row.bt-connected .bt-device-name,
+.bt-row.bt-connected image {
+  color: @on_primary_container;
+}
+
+.connected-status-pill {
+  background-color: @primary;
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: @on_primary;
+  font-size: 10px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.bt-connect-btn {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 2px 10px;
+  transition: all 0.2s ease;
+}
+
+.bt-connect-btn label {
+  color: @on_surface;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bt-connect-btn:hover {
+  background: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.35);
+}
+
+.bt-connect-btn:hover label {
+  color: @on_primary_container;
+}
+
+.bt-row.bt-connected .bt-connect-btn {
+  background: alpha(@secondary_container, 0.75);
+  border-color: alpha(@surface_tint, 0.35);
+}
+
+.bt-row.bt-connected .bt-connect-btn label {
+  color: @on_secondary_container;
+}
+
+.bt-icon-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 4px;
+}
+
+.bt-row:hover .bt-icon-btn image {
+  color: @on_surface;
+}
+
+.bt-danger:hover {
+  background-color: @error_container;
+  border-color: @error;
+}
+
+/* =============================================================================
+   WALLPAPER
+   ============================================================================= */
+
+.wallpaper-grid {
+  padding: 12px;
+  min-height: 400px;
+}
+
+.wallpaper-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.wallpaper-card {
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wallpaper-btn:hover .wallpaper-card {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Video/GIF wallpaper card */
+/* play icon badge on video thumbnail */
+.wallpaper-video-play-badge {
+  opacity: 0.85;
+  color: white;
+  -gtk-icon-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* =============================================================================
+   NOTIFICATIONS
+   ============================================================================= */
+
+.notification-popup {
+  background-color: var(--surface);
+  border: 1.5px solid var(--primary);
+  border-radius: 12px;
+  padding: 12px;
+  color: var(--on_surface);
+  margin: 8px;
+  min-width: 380px;
+  transition: all 0.2s ease;
+}
+
+.notification-popup:hover {
+  background-color: var(--surface_container_high);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.notification-popup-header {
+  margin-bottom: 6px;
+}
+
+.notification-center {
+  background-color: transparent;
+}
+
+.notification-center-content {
+  background-color: var(--surface);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 24px;
+  padding: 16px;
+  margin: 8px;
+  min-width: 400px;
+}
+
+.notification-center .header {
+  border-bottom: 1.5px solid var(--outline_variant);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.notification-center .header label {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.notification-center .clear-all {
+  background-color: var(--surface_container_low);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--on_surface);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.notification-list {
+  min-height: 200px;
+  padding: 2px 0;
+}
+
+.notification-item {
+  background-color: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: @on_surface;
+  margin-bottom: 6px;
+  transition: all 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.35);
+  color: @on_primary_container;
+}
+
+.notification-summary,
+.notification-popup-summary {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.notification-body,
+.notification-popup-body {
+  font-size: 12px;
+  color: @on_surface;
+  line-height: 1.4;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+.notification-app,
+.notification-popup-app {
+  font-size: 11px;
+  font-weight: 500;
+  color: @primary;
+  margin-top: 4px;
+}
+
+.dismiss-button,
+.notification-popup-close {
+  background-color: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 2px 6px;
+  min-width: 22px;
+  min-height: 22px;
+  color: @on_surface;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.no-notifications {
+  padding: 60px 20px;
+}
+
+.no-notifications label {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--on_surface_variant);
+}
+
+.notification-image-wrapper {
+  border-radius: 9999px;
+  min-width: 48px;
+  min-height: 48px;
+  background-color: var(--surface_container);
+  border: 1px solid var(--outline_variant);
+  padding: 0;
+}
+
+.notification-image-wrapper picture {
+  border-radius: 100%;
+  min-width: 48px;
+  min-height: 48px;
+}
+
+.notification-popup-image-wrapper {
+  border-radius: 100%;
+  min-width: 44px;
+  min-height: 44px;
+  background-color: var(--surface_container);
+  border: 1px solid var(--outline_variant);
+  padding: 0;
+}
+
+.notification-popup-image-wrapper picture {
+  border-radius: 100%;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* =============================================================================
+   SIDEBAR — styled to match waybar
+   ============================================================================= */
 
 .sidebar {
-    background: alpha(@background, 0.86);
-    border-right: 1px solid alpha(@surface_tint, 0.28);
-    padding: 14px 12px;
-    min-width: 300px;
-    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateX(-300px);
+  background-color: transparent;
 }
 
-.sidebar.visible {
-    transform: translateX(0);
+.sidebar-container {
+  background-color: @background;
+  border: none;
+  border-right: 1px solid alpha(@surface_tint, 0.28);
+  border-radius: 0;
+  padding: 20px 16px;
+  margin: 0;
+  min-width: 380px;
 }
 
 .sidebar-header {
-    padding-bottom: 12px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid alpha(@surface_tint, 0.2);
+  border-bottom: 1px solid alpha(@surface_tint, 0.28);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .sidebar-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: @on_surface;
-    letter-spacing: 0.5px;
+  font-size: 13px;
+  font-weight: 700;
+  color: @on_background;
+  letter-spacing: 0.3px;
+}
+
+.sidebar-close-btn,
+.settings-toggle,
+.powermenu-toggle {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 0 9px;
+  min-height: 26px;
+  color: @on_surface;
+  transition: all 0.2s ease;
+}
+
+.sidebar-close-btn image,
+.settings-toggle image,
+.powermenu-toggle image {
+  color: @on_surface;
+}
+
+.sidebar-close-btn:hover,
+.settings-toggle:hover,
+.powermenu-toggle:hover {
+  background: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.35);
+  color: @on_primary_container;
+}
+
+.sidebar-close-btn:hover image,
+.settings-toggle:hover image,
+.powermenu-toggle:hover image {
+  color: @on_primary_container;
 }
 
 .sidebar-content {
-    padding-top: 10px;
+  padding: 8px 0;
+}
+
+.sidebar-content scrolledwindow {
+  padding-right: 0;
+}
+
+/* QS tile (base card) */
+.qs-tile {
+  background-color: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+/* QS bar-style buttons — pill shape, matches waybar items */
+.qs-bar-btn {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 0 12px;
+  min-height: 32px;
+  color: @on_surface;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.qs-bar-btn label {
+  color: @on_surface;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.qs-bar-btn image {
+  color: @on_surface;
+  -gtk-icon-size: 14px;
+}
+
+.qs-bar-btn:hover {
+  background: alpha(@surface, 0.8);
+  border-color: alpha(@surface_tint, 0.55);
+}
+
+.qs-bar-btn:hover label,
+.qs-bar-btn:hover image {
+  color: @on_surface;
+}
+
+/* Active state — matches waybar clock/connected item style */
+.qs-bar-btn.active {
+  background: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.35);
+}
+
+.qs-bar-btn.active label {
+  color: @on_primary_container;
+  font-weight: 600;
+}
+
+.qs-bar-btn.active image {
+  color: @on_primary_container;
+}
+
+/* Dropdown panels revealed by QS buttons */
+.qs-dropdown-panel {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 6px;
+}
+
+.qs-dropdown-scroll {
+  border-radius: 12px;
+}
+
+/* Panel header titles (Wi-Fi, Bluetooth, etc.) */
+.qs-panel-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: @on_background;
+}
+
+/* Sub-section labels (Paired, Available, Output, Input) */
+.qs-panel-section {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: @on_surface;
+  opacity: 0.6;
+}
+
+/* ── Audio panel ───────────────────────────────────────────────────────────── */
+
+.audio-vol-slider trough {
+  background: @surface_container_high;
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+.audio-vol-slider highlight {
+  background: @primary;
+  border-radius: 10px;
+}
+
+.audio-vol-slider slider {
+  background: @surface_container_high;
+  border: 2px solid @primary;
+  border-radius: 100%;
+  min-width: 14px;
+  min-height: 14px;
+  margin: -4px;
+}
+
+.audio-vol-pct {
+  font-size: 11px;
+  font-weight: 600;
+  color: @on_surface;
+  min-width: 38px;
+}
+
+.audio-device-drop {
+  font-size: 12px;
+}
+
+.audio-device-icon {
+  color: @on_surface;
+  -gtk-icon-size: 14px;
+}
+
+.audio-app-icon {
+  -gtk-icon-size: 16px;
+  color: @on_surface;
+}
+
+.audio-app-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: @on_surface;
+}
+
+.sliders-container {
+  background-color: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* ── Notification section ──────────────────────────────────────────────────── */
+
+.notification-section {
+  margin-bottom: 6px;
+}
+
+.notification-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: @on_background;
+}
+
+.clear-all {
+  background: transparent;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 2px 10px;
+  min-height: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  color: @on_surface;
+  transition: all 0.15s ease;
+}
+
+.qs-slider-container {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.back-button {
+  background: transparent;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 4px 12px;
+  color: @on_surface;
+  transition: all 0.15s ease;
+}
+
+/* =============================================================================
+   UPDATE POPUP
+   ============================================================================= */
+
+.update-popup-window {
+  background: transparent;
+}
+
+.update-popup {
+  background: var(--surface);
+  border: 1.5px solid var(--primary);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 12px;
+  min-width: 320px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.update-popup-icon {
+  -gtk-icon-size: 28px;
+  color: var(--primary);
+}
+
+.update-popup-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--on_surface);
+}
+
+.update-popup-body {
+  font-size: 12px;
+  color: var(--on_surface_variant);
+}
+
+.update-popup-later {
+  background: transparent;
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 5px 14px;
+  color: var(--on_surface_variant);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.update-popup-later:hover {
+  background: var(--surface_container);
+  border-color: var(--outline);
+  color: var(--on_surface);
+}
+
+.update-popup-view {
+  background: var(--primary);
+  border: 1.5px solid var(--primary);
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.update-popup-view label {
+  color: var(--on_primary);
+}
+
+.update-popup-view:hover {
+  background: var(--primary_container);
+  border-color: var(--primary);
+}
+
+.update-popup-view:hover label {
+  color: var(--on_primary_container);
+}
+
+/* =============================================================================
+   POWER MENU
+   ============================================================================= */
+
+.powermenu-fullscreen-bg {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.powermenu-container {
+  padding: 32px;
+  background: transparent;
+}
+
+.powermenu-card {
+  background: var(--surface_container);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 24px;
+  padding: 40px 32px;
+  min-width: 140px;
+  color: var(--on_surface);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.powermenu-card image {
+  color: var(--on_surface);
+  -gtk-icon-size: 64px;
+}
+
+.powermenu-card label {
+  color: var(--on_surface);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.powermenu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.powermenu-card.lock:hover {
+  background-color: var(--primary_container);
+  border-color: var(--primary);
+}
+
+.powermenu-card.lock:hover image,
+.powermenu-card.lock:hover label {
+  color: var(--on_primary_container);
+}
+
+.powermenu-card.hibernate:hover {
+  background-color: var(--tertiary_container);
+  border-color: var(--tertiary);
+}
+
+.powermenu-card.hibernate:hover image,
+.powermenu-card.hibernate:hover label {
+  color: var(--on_tertiary_container);
+}
+
+.powermenu-card.reboot:hover {
+  background-color: var(--secondary_container);
+  border-color: var(--secondary);
+}
+
+.powermenu-card.reboot:hover image,
+.powermenu-card.reboot:hover label {
+  color: var(--on_secondary_container);
+}
+
+.powermenu-card.shutdown:hover {
+  background-color: var(--error_container);
+  border-color: var(--error);
+}
+
+.powermenu-card.shutdown:hover image,
+.powermenu-card.shutdown:hover label {
+  color: var(--on_error_container);
+}
+
+.powermenu-toggle {
+  border-color: var(--surface_container);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.powermenu-toggle:hover {
+  background: #e54b4b;
+  color: white;
+}
+
+.power-button {
+  background-color: var(--error_container);
+  border: 1.5px solid var(--error);
+  border-radius: 16px;
+  padding: 14px;
+  color: var(--on_error_container);
+}
+
+.power-button:hover {
+  background-color: var(--error);
+  color: var(--on_error);
+}
+
+/* =============================================================================
+   MUSIC POPUP
+   ============================================================================= */
+
+.music-popup-window {
+  background-color: transparent;
+}
+
+.music-popup-content {
+  background-color: var(--surface);
+  border: 1.5px solid var(--primary);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  min-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.album-cover {
+  border: 1.5px solid var(--outline_variant);
+}
+
+.track-info {
+  margin-left: 4px;
+}
+
+.track-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.track-artist {
+  font-size: 12px;
+  color: var(--on_surface_variant);
+  opacity: 0.8;
+}
+
+.controls {
+  margin-top: 4px;
+}
+
+.control-button {
+  background-color: var(--surface_container_low);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  color: var(--primary);
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 18px;
+  transition: all 200ms ease;
+}
+
+.powermenu-card:active,
+.control-button:active {
+  transform: scale(0.95);
+}
+
+.control-button.play-pause {
+  background-color: var(--primary_container);
+  border-color: var(--primary);
+  font-size: 20px;
+  min-width: 48px;
+  min-height: 48px;
+}
+
+.control-button.play-pause label {
+  color: var(--on_primary_container);
+}
+
+/* =============================================================================
+   DRAG & DROP
+   ============================================================================= */
+
+.bar-edit-mode {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.draggable-widget.dragging {
+  opacity: 0.5;
+}
+
+.draggable-widget.edit-mode {
+  border: 2px dashed transparent;
+  border-radius: 4px;
+  transition: all 200ms;
+}
+
+.draggable-widget.edit-mode:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.draggable-widget.drop-before {
+  border-left: 3px solid #ffffff;
+}
+
+.draggable-widget.drop-after {
+  border-right: 3px solid #ffffff;
+}
+
+.drop-zone {
+  min-width: 80px;
+  min-height: 24px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.drop-zone-active {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.drop-zone-label {
+  font-size: 10px;
+  opacity: 0.6;
+  padding: 0 8px;
+}
+
+.drag-icon {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 4px 12px;
+  min-height: 24px;
+}
+
+.drag-label {
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* =============================================================================
+   MISC
+   ============================================================================= */
+
+.menu-item {
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: var(--surface_container_high);
+}
+
+.back-btn {
+  border-radius: 50%;
+  padding: 8px;
+}
+
+/* =============================================================================
+   CALENDAR WIDGET
+   ============================================================================= */
+
+.cal-widget {
+  padding: 4px 0 12px 0;
+}
+
+.cal-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.cal-nav {
+  margin-bottom: 6px;
+}
+
+.cal-month-lbl {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--on_surface);
+}
+
+.cal-nav-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 4px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 6px;
+  color: var(--primary);
+}
+
+.cal-nav-btn image {
+  color: var(--primary);
+  -gtk-icon-size: 14px;
+}
+
+/* .cal-today-btn and .cal-open-day-btn share the same base shape */
+.cal-today-btn,
+.cal-open-day-btn {
+  background: transparent;
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 6px;
+  padding: 2px 8px;
+  min-height: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.bar-button-image,
+#notification-button image,
+.notification-button image,
+.bt-connect-btn:hover label,
+.cal-open-day-btn {
+  color: var(--primary);
+}
+
+.cal-today-btn {
+  color: var(--on_surface_variant);
+}
+
+.cal-dow-row {
+  margin-bottom: 2px;
+}
+
+.cal-dow {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--on_surface_variant);
+  opacity: 0.6;
+  text-transform: uppercase;
+  min-width: 34px;
+  padding: 4px 0 6px 0;
+}
+
+.cal-grid {
+  margin-bottom: 4px;
+}
+
+.cal-cell,
+.cal-cell-blank {
+  min-width: 34px;
+  min-height: 40px;
+}
+
+.cal-cell {
+  border-radius: 8px;
+  padding: 4px 4px;
+  transition: background 0.12s ease;
+}
+
+.cal-day-num {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--on_surface);
+  min-width: 24px;
+}
+
+.cal-today {
+  background: var(--surface_container_high);
+  border: 1.5px solid var(--primary);
+}
+
+.cal-today .cal-day-num {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.cal-sel,
+.cal-sel:hover {
+  background: var(--primary);
+}
+
+.cal-sel .cal-day-num {
+  color: var(--on_primary);
+  font-weight: 700;
+}
+
+.cal-event-list {
+  margin-top: 6px;
+}
+
+.cal-day-heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+
+.cal-ev-row {
+  background: var(--surface_container_low);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 10px;
+  padding: 8px 10px;
+  transition: background 0.15s ease;
+}
+
+/* Shared text styles across mini-list and day view */
+.cal-ev-title,
+.dv-ev-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on_surface);
+}
+
+.cal-ev-desc,
+.dv-ev-desc {
+  font-size: 11px;
+  color: var(--on_surface_variant);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.cal-ev-meta {
+  font-size: 11px;
+  color: var(--on_surface_variant);
+  opacity: 0.75;
+}
+
+.cal-empty {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--on_surface_variant);
+  opacity: 0.6;
+  padding: 4px 0;
+}
+
+.cal-ev-chip {
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.1s ease;
+}
+
+.cal-ev-chip-label {
+  font-size: 12px;
+  color: var(--on_surface);
+}
+
+.cal-sub-header {
+  margin-top: 6px;
+}
+
+.cal-sub-row {
+  background: var(--surface_container_low);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 4px;
+}
+
+.cal-sub-row:hover {
+  background: var(--surface_container);
+}
+
+.cal-icon-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 4px;
+  border-radius: 6px;
+  min-width: 24px;
+  min-height: 24px;
+  color: var(--primary);
+}
+
+.cal-icon-btn image {
+  color: var(--primary);
+  -gtk-icon-size: 14px;
+}
+
+.cal-icon-btn:hover {
+  border-color: transparent;
+}
+
+.cal-danger:hover {
+  background: var(--error_container);
+  border-color: transparent;
+}
+
+.cal-danger:hover image {
+  color: var(--error);
+}
+
+.cal-dialog {
+  background: var(--surface);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 16px;
+}
+
+.cal-dlg-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--on_surface_variant);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-top: 4px;
+}
+
+.cal-dlg-save {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on_primary);
+  font-weight: 700;
+}
+
+.cal-dlg-save label {
+  color: var(--on_primary);
+}
+
+.cal-dlg-danger {
+  background: transparent;
+  border: 1.5px solid var(--error);
+  color: var(--error);
+}
+
+.cal-dlg-status {
+  font-size: 11px;
+  color: var(--on_surface_variant);
+  font-style: italic;
+}
+
+.cal-tab-row {
+  background: var(--surface_container_high);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.cal-tab {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--on_surface_variant);
+  transition: all 0.15s ease;
+}
+
+.cal-tab label {
+  color: inherit;
+}
+
+.cal-tab:hover {
+  background: var(--surface_container_highest);
+  border-color: transparent;
+  color: var(--on_surface);
+}
+
+.cal-tab.cal-tab-active,
+.cal-tab.cal-tab-active:hover {
+  background: var(--surface);
+  border-color: transparent;
+  color: var(--primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.cal-browse-btn {
+  background: var(--surface_container_high);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--on_surface);
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+/* =============================================================================
+   DAY VIEW
+   ============================================================================= */
+
+.dv-root {
+  background: var(--surface);
+}
+
+.dv-header {
+  padding: 14px 16px 10px 16px;
+  border-bottom: 1.5px solid var(--outline_variant);
+}
+
+.dv-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.dv-allday-strip {
+  padding: 8px 16px;
+  background: var(--surface_container_low);
+}
+
+.dv-allday-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--on_surface_variant);
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+
+.dv-allday-row {
+  padding: 4px 0;
+}
+
+.dv-allday-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on_surface);
+}
+
+.dv-hour-grid {
+  padding: 0 0 16px 0;
+}
+
+.dv-slot {
+  min-height: 56px;
+  padding: 6px 0;
+  transition: background 0.1s ease;
+}
+
+.dv-slot-now {
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.dv-slot-now:hover {
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+.dv-time-lbl {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--on_surface_variant);
+  opacity: 0.6;
+  padding: 4px 8px 0 12px;
+  min-width: 44px;
+}
+
+.dv-slot-now .dv-time-lbl {
+  color: var(--primary);
+  opacity: 1;
+  font-weight: 700;
+}
+
+.dv-vdiv {
+  min-width: 1px;
+  background: var(--outline_variant);
+  opacity: 0.4;
+  margin: 4px 0;
+}
+
+.dv-ev-col {
+  padding: 4px 12px 4px 10px;
+}
+
+.dv-half-line {
+  background: var(--outline_variant);
+  opacity: 0.2;
+  min-height: 1px;
+  margin-left: 52px;
+}
+
+.dv-ev-card {
+  background: var(--surface_container_low);
+  border: 1.5px solid var(--outline_variant);
+  border-radius: 8px;
+  padding: 8px 10px;
+  transition: background 0.12s ease;
+}
+
+.dv-ev-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+}
+label {
+  color: @primary;
+}
+button label {
+  color: @on_surface;
 }

@@ -56,6 +56,21 @@ tooltip {
   background: @error_container;
 }
 
+#custom-sidebar {
+  margin: 5px 3px 5px 8px;
+  padding: 0 11px;
+  background: alpha(@surface, 0.55);
+  color: @on_surface;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+#custom-sidebar:hover {
+  background: alpha(@primary_container, 0.88);
+  color: @on_primary_container;
+}
+
 #clock,
 #custom-gpu,
 #custom-cpu,

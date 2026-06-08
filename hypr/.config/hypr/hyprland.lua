@@ -286,7 +286,7 @@ for i = 1, 10 do
 end
 
 -- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("ags request toggle-sidebar"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("ags request -i synapse RightSidebar"))
 hl.bind(mainMod .. " + grave", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:magic" }))
 

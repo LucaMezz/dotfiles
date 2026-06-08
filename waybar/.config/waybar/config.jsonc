@@ -5,6 +5,7 @@
   "spacing": 6,
 
   "modules-left": [
+    "custom/sidebar",
     "hyprland/workspaces"
   ],
 
@@ -23,6 +24,12 @@
     "wireplumber",
     "tray"
   ],
+
+  "custom/sidebar": {
+    "format": "󱇊",
+    "on-click": "ags request -i synapse RightSidebar",
+    "tooltip": false
+  },
 
   "hyprland/workspaces": {
     "format": "{name}",
