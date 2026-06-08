@@ -45,6 +45,22 @@ ZSH_ACCENT="#5E81AC"
 ZSH_FG="#E5E9F0"
 ZSH_FG_ON_ACCENT="#ECEFF4"
 [[ -f ~/.config/zsh/colors.zsh ]] && source ~/.config/zsh/colors.zsh
+_zsh_colors_mtime=$(stat -c %Y ~/.config/zsh/colors.zsh 2>/dev/null)
+
+TRAPUSR1() {
+  source ~/.config/zsh/colors.zsh 2>/dev/null
+  _zsh_colors_mtime=$(stat -c %Y ~/.config/zsh/colors.zsh 2>/dev/null)
+  zle && zle reset-prompt
+}
+
+_maybe_reload_colors() {
+  local mtime
+  mtime=$(stat -c %Y ~/.config/zsh/colors.zsh 2>/dev/null) || return
+  [[ $mtime != $_zsh_colors_mtime ]] || return
+  _zsh_colors_mtime=$mtime
+  source ~/.config/zsh/colors.zsh
+}
+precmd_functions+=(_maybe_reload_colors)
 
 hex_to_rgb() {
   local hex="${1#'#'}"

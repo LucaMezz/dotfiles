@@ -32,3 +32,4 @@ post_hook = "bash ~/.config/hypr/colors.sh"
 [templates.zsh]
 input_path = "~/.config/matugen/templates/zsh-colors.zsh"
 output_path = "~/.config/zsh/colors.zsh"
+post_hook = "pkill -SIGUSR1 zsh || true"
