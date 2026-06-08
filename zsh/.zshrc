@@ -4,15 +4,24 @@
 
 export PATH="$HOME/.local/bin:$PATH"
 
+# opencode
+export PATH=/home/luca/.opencode/bin:$PATH
+
+# nvm
+source /usr/share/nvm/init-nvm.sh
+
 # -----------------------------
 # Basic shell options
 # -----------------------------
 
 setopt autocd              # type a directory name to cd into it
-setopt correct             # suggest corrections for mistyped commands
 setopt interactivecomments # allow comments in interactive shell
 setopt histignoredups      # don't save duplicate history entries
-setopt sharehistory        # share history across terminals
+setopt sharehistory append_history inc_append_history # share history across terminals
+setopt auto_param_slash
+setopt no_case_glob no_case_match
+setopt globdots
+setopt extended_glob
 
 # -----------------------------
 # History
@@ -26,7 +35,11 @@ SAVEHIST=10000
 # Prompt
 # -----------------------------
 
-PROMPT='%F{cyan}%n@%m%f %F{blue}%~%f %# '
+# set up prompt
+NEWLINE=$'\n'
+PROMPT="${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ " # nord theme
+
+echo -e "${NEWLINE}\033[48;2;46;52;64;38;2;216;222;233m $0 \033[0m\033[48;2;59;66;82;38;2;216;222;233m $(uptime -p | cut -c 4-) \033[0m\033[48;2;76;86;106;38;2;216;222;233m $(uname -r) \033[0m" # nord theme
 
 # -----------------------------
 # Completion
@@ -46,8 +59,11 @@ else
 fi
 
 zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" ma=0\;33
+
+source <(fzf --zsh)
 
 # -----------------------------
 # Keybindings
@@ -85,6 +101,3 @@ eval "$(keychain --eval --quiet id_ed25519)"
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# opencode
-export PATH=/home/luca/.opencode/bin:$PATH
-source /usr/share/nvm/init-nvm.sh
