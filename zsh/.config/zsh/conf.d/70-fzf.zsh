@@ -1,6 +1,7 @@
 source <(fzf --zsh)
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --strip-cwd-prefix --exclude .git'
+export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 

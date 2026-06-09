@@ -1,2 +1,2 @@
-export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'"
-export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview"
+# SSH agent — login shells only
+eval "$(keychain --eval --quiet id_ed25519)"
