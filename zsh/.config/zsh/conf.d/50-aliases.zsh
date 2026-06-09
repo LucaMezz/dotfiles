@@ -22,6 +22,9 @@ alias rg='rg --color=auto'
 alias diff='diff --color=auto'
 alias df='df -h'
 
+# Git tools
+alias scout='git-scout'
+
 # Navigation
 
 alias -- -='cd -' # - jumps to the previous directory
