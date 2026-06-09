@@ -31,6 +31,6 @@ export MANWIDTH="${MANWIDTH:-999}"
 export BAT_THEME="Catppuccin Mocha"
 
 # PATH
-export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PNPM_HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PNPM_HOME:$PNPM_HOME/bin:$CARGO_HOME/bin:$GOPATH/bin:$PATH"
 [[ -f "$XDG_DATA_HOME/ghcup/env" ]] && source "$XDG_DATA_HOME/ghcup/env"
 . "$HOME/.rokit/env"
