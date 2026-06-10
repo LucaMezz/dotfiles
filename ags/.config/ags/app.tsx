@@ -4,7 +4,6 @@ import app from "ags/gtk4/app";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import Gtk from "gi://Gtk?version=4.0";
-// import Bar from "./Bar";
 import VolumePopup from "./Widgets/VolumePopup";
 import BrightnessPopup from "./Widgets/BrightnessPopup";
 import UpdatePopup from "./Widgets/Updatepopup";
@@ -14,7 +13,6 @@ import NotificationPopups from "./Widgets/Notificationpopup";
 import Sidebar from "./Widgets/RightSidebar";
 import PowerMenu from "./Widgets/PowerMenu";
 import MusicPopup from "./Widgets/BottomPopup";
-import { toggleEditMode, editMode } from "./State";
 
 const configDir = `${GLib.get_user_config_dir()}/ags`;
 const STYLE_PATH = `${configDir}/style.css`;
@@ -48,12 +46,6 @@ app.start({
       const monitors = app.get_monitors();
       monitors.forEach((m) => app.toggle_window(`powermenu-${m.connector}`));
       return res("ok");
-    }
-    if (argv[0] === "toggle-edit-mode") {
-      toggleEditMode();
-      return res(
-        `ok - edit mode is now ${editMode.get() ? "enabled" : "disabled"}`,
-      );
     }
     if (argv[0] === "music-popup") {
       const monitors = app.get_monitors();
@@ -95,14 +87,11 @@ app.start({
       console.error(e);
     }
 
-    // Return a single JSX element — no fragment needed, avoiding the
-    // "nesting Fragments are not yet supported" gnim error.
     const monitors = createBinding(app, "monitors");
     return (
       <For each={monitors}>
         {(gdkmonitor) => (
           <This this={app}>
-            {/* <Bar gdkmonitor={gdkmonitor} /> */}
             <SettingsWindow gdkmonitor={gdkmonitor} />
             <VolumePopup gdkmonitor={gdkmonitor} />
             <BrightnessPopup gdkmonitor={gdkmonitor} />

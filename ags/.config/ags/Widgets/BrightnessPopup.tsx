@@ -38,7 +38,7 @@ function getBrightnessRatio(basePath: string): number {
 
 export default function BrightnessPopup({ gdkmonitor }: { gdkmonitor: any }) {
   const backlightPath = findBacklightPath();
-  if (!backlightPath) return <box />;
+  if (!backlightPath) return null as any;
 
   let timeoutId: number | null = null;
 

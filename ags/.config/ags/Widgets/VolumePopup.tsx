@@ -7,7 +7,7 @@ import Cairo from "gi://cairo";
 
 export default function VolumePopup({ gdkmonitor }: { gdkmonitor: any }) {
   const speaker = AstalWp.get_default()?.audio.defaultSpeaker;
-  if (!speaker) return <box />;
+  if (!speaker) return null as any;
 
   let timeoutId: number | null = null;
 

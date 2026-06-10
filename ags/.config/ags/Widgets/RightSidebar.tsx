@@ -9,7 +9,6 @@ import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import Pango from "gi://Pango";
 import { Variable } from "../utils/Variable";
-import { editMode, toggleEditMode } from "../State";
 import CalendarWidget, { buildDayView } from "./Calendar";
 
 // ── Network helpers (inlined from Network.tsx) ────────────────────────────────
@@ -1472,40 +1471,12 @@ export default function RightSidebar({
     row2.append(wifiBtn);
     row2.append(btBtn);
 
-    // Row 3: Edit Layout (full width)
-    const editBtn = new Gtk.Button();
-    editBtn.set_css_classes(["qs-bar-btn"]);
-    const editInner = new Gtk.Box({ spacing: 8 });
-    const editIcon = new Gtk.Image({ iconName: "view-grid-symbolic" });
-    const editLbl = new Gtk.Label({
-      label: "Edit Layout",
-      xalign: 0,
-      hexpand: true,
-    });
-    const editCheck = new Gtk.Image({
-      iconName: "object-select-symbolic",
-      visible: false,
-    });
-    editInner.append(editIcon);
-    editInner.append(editLbl);
-    editInner.append(editCheck);
-    editBtn.set_child(editInner);
-    const editUnsub = editMode.subscribe((v) => {
-      editLbl.label = v ? "Exit Edit Mode" : "Edit Layout";
-      editCheck.visible = v;
-      if (v) editBtn.add_css_class("active");
-      else editBtn.remove_css_class("active");
-    });
-    editBtn.connect("clicked", () => toggleEditMode());
-    editBtn.connect("destroy", editUnsub);
-
     const btnBox = new Gtk.Box({
       orientation: Gtk.Orientation.VERTICAL,
       spacing: 8,
     });
     btnBox.append(row1);
     btnBox.append(row2);
-    btnBox.append(editBtn);
 
     top.append(header);
     top.append(btnBox);
