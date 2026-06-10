@@ -33,3 +33,12 @@ post_hook = "bash ~/.config/hypr/colors.sh"
 input_path = "~/.config/matugen/templates/zsh-colors.zsh"
 output_path = "~/.config/zsh/colors.zsh"
 post_hook = "pkill -SIGUSR1 zsh || true"
+
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock.conf"
+output_path = "~/dotfiles/hypr/.config/hypr/hyprlock.conf"
+
+[templates.sddm]
+input_path = "~/.config/matugen/templates/sddm-matugen.conf"
+output_path = "~/.cache/sddm-matugen.conf"
+post_hook = "sudo -n ~/.config/hypr/scripts/sddm-update.sh 2>/dev/null || true"

@@ -26,5 +26,8 @@ done
     printf 'splash = false\nipc = true\n'
 } > "$HYPRPAPER_CONF"
 
+# Keep a stable symlink so hyprlock always finds the current wallpaper
+ln -sf "$WALLPAPER" "$HOME/.cache/current-wallpaper"
+
 # Regenerate all theme colors from the new wallpaper
 matugen image "$WALLPAPER" --prefer saturation

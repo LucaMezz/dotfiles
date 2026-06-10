@@ -51,6 +51,7 @@ hl.on("hyprland.start", function()
 	--   hl.exec_cmd(terminal)
 	--   hl.exec_cmd("nm-applet")
 	hl.exec_cmd("waybar & hyprpaper & flatpak run app.zen_browser.zen")
+	hl.exec_cmd("hypridle &")
 	hl.exec_cmd("pkill -f 'gjs.*ags.js'; sleep 0.3 && ags run --gtk 4 &")
 	hl.exec_cmd("[ -f ~/.config/hypr/colors.sh ] && bash ~/.config/hypr/colors.sh || true")
 end)
@@ -337,6 +338,9 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- Wallpaper
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-random.sh"))
+
+-- Lock screen (SUPER+L is taken by focus-right, use CTRL variant)
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----

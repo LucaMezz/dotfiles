@@ -49,4 +49,16 @@ for package in "${PACKAGES[@]}"; do
 done
 
 echo
+echo "Setting up sudoers rules..."
+SUDOERS_SDDM="/etc/sudoers.d/sddm-update"
+SDDM_SCRIPT="/home/luca/dotfiles/hypr/.config/hypr/scripts/sddm-update.sh"
+if [[ ! -f "$SUDOERS_SDDM" ]]; then
+  echo "$USER ALL=(ALL) NOPASSWD: $SDDM_SCRIPT" | sudo tee "$SUDOERS_SDDM" >/dev/null
+  sudo chmod 0440 "$SUDOERS_SDDM"
+  echo "Created $SUDOERS_SDDM"
+else
+  echo "sudoers rule already exists — skipped"
+fi
+
+echo
 echo "Done. Dotfiles installed."
