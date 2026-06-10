@@ -94,7 +94,7 @@
     "exec": "~/.config/waybar/scripts/updates",
     "return-type": "json",
     "interval": 1800,
-    "on-click": "kitty sh -c 'paru -Syu; echo; read -p \"Done — press Enter to close.\"'",
+    "on-click": "kitty sh -c 'aur=$(command -v paru || command -v yay); $aur -Syu; echo; read -p \"Done — press Enter to close.\"'",
     "tooltip": true
   },
 
