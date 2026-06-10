@@ -161,3 +161,53 @@ tooltip {
 #tray {
   margin-right: 8px;
 }
+
+/* Connected media pill: [player icon + info | ⏮ | ⏯ | ⏭] */
+
+#media {
+  margin: 5px 3px;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+#mpris {
+  margin: 0;
+  padding: 0 12px 0 10px;
+  background: alpha(@secondary_container, 0.72);
+  color: @on_secondary_container;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-right: none;
+  border-radius: 999px 0 0 999px;
+}
+
+#mpris.paused {
+  opacity: 0.7;
+}
+
+#custom-media-prev,
+#custom-media-play,
+#custom-media-next {
+  margin: 0;
+  padding: 0 9px;
+  background: alpha(@surface, 0.6);
+  color: @on_surface;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-left: none;
+  border-radius: 0;
+  font-size: 11px;
+}
+
+#custom-media-next {
+  border-radius: 0 999px 999px 0;
+}
+
+#custom-media-play.playing {
+  color: @on_secondary_container;
+  background: alpha(@secondary_container, 0.45);
+}
+
+#custom-media-play.paused {
+  color: @on_surface;
+  opacity: 0.8;
+}

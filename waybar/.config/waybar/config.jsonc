@@ -1,12 +1,13 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 32,
+  "height": 33,
   "spacing": 6,
 
   "modules-left": [
     "custom/sidebar",
-    "hyprland/workspaces"
+    "hyprland/workspaces",
+    "group/media"
   ],
 
   "modules-center": [
@@ -120,5 +121,59 @@
 
   "tray": {
     "spacing": 8
+  },
+
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": ["mpris", "custom/media-prev", "custom/media-play", "custom/media-next"]
+  },
+
+  "mpris": {
+    "format": "{player_icon}  {dynamic}",
+    "format-paused": "{player_icon}  {dynamic}",
+    "dynamic-order": ["title", "artist"],
+    "dynamic-len": 35,
+    "player-icons": {
+      "default":  "󰎇",
+      "spotify":  "󰓇",
+      "firefox":  "󰈹",
+      "chromium": "󰊯",
+      "brave":    "󰖟",
+      "mpv":      "󰎁",
+      "vlc":      "󰕼"
+    },
+    "status-icons": {
+      "playing": "",
+      "paused":  "",
+      "stopped": "󰓛"
+    },
+    "tooltip-format": "{player_icon}  {title}\n{artist}  ·  {album}\n{status_icon}  {position} / {length}"
+  },
+
+  "custom/media-prev": {
+    "exec": "~/.config/waybar/scripts/media-prev",
+    "exec-if": "playerctl status 2>/dev/null",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "playerctl previous",
+    "tooltip": false
+  },
+
+  "custom/media-play": {
+    "exec": "~/.config/waybar/scripts/media-play",
+    "exec-if": "playerctl status 2>/dev/null",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "playerctl play-pause",
+    "tooltip": false
+  },
+
+  "custom/media-next": {
+    "exec": "~/.config/waybar/scripts/media-next",
+    "exec-if": "playerctl status 2>/dev/null",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "playerctl next",
+    "tooltip": false
   }
 }

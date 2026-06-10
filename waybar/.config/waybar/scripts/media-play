@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+case "$(playerctl status 2>/dev/null)" in
+    Playing) printf '{"text":"󰏤","class":"playing"}\n' ;;
+    Paused)  printf '{"text":"󰐊","class":"paused"}\n' ;;
+    *)       printf '{"text":""}\n' ;;
+esac

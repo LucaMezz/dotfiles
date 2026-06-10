@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+playerctl status &>/dev/null && printf '{"text":"󰒮"}\n' || printf '{"text":""}\n'
