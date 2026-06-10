@@ -1,5 +1,6 @@
 import app from "ags/gtk4/app";
 import Astal from "gi://Astal?version=4.0";
+import Gdk from "gi://Gdk?version=4.0";
 import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
 import AppearancePage from "./settings/Appearance";
@@ -109,6 +110,9 @@ export default function SettingsWindow({ gdkmonitor }: { gdkmonitor: any }) {
   const activeTab = new Variable("appearance");
   const monitorWidth = gdkmonitor.geometry.width || 1920;
   const scaleFactor = monitorWidth / 1920;
+  const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
+
+  const hide = (self: any) => { self.get_root().visible = false; };
 
   return (
     <window
@@ -119,14 +123,46 @@ export default function SettingsWindow({ gdkmonitor }: { gdkmonitor: any }) {
       application={app}
       keymode={Astal.Keymode.ON_DEMAND}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
-      widthRequest={Math.round(1200 * scaleFactor)}
-      heightRequest={Math.round(550 * scaleFactor)}
-      resizable={false}
+      layer={Astal.Layer.OVERLAY}
+      anchor={TOP | BOTTOM | LEFT | RIGHT}
+      $={(self) => {
+        const keys = new Gtk.EventControllerKey();
+        keys.connect("key-pressed", (_e, kv) => {
+          if (kv === Gdk.KEY_Escape) { self.visible = false; return Gdk.EVENT_STOP; }
+          return Gdk.EVENT_PROPAGATE;
+        });
+        self.add_controller(keys);
+      }}
     >
-      <Gtk.Box
-        orientation={Gtk.Orientation.HORIZONTAL}
-        cssClasses={["settings-container"]}
+      <box
+        cssClasses={["settings-overlay-bg"]}
+        hexpand
+        vexpand
+        halign={Gtk.Align.FILL}
+        valign={Gtk.Align.FILL}
+        $={(self) => {
+          const gesture = new Gtk.GestureClick();
+          gesture.connect("pressed", (_g, _n, x, y) => {
+            const pick = self.pick(x, y, Gtk.PickFlags.DEFAULT);
+            if (!pick) return;
+            let w: any = pick;
+            while (w) {
+              if (w.get_css_classes?.().includes("settings-container")) return;
+              w = w.get_parent?.();
+            }
+            self.get_root().visible = false;
+          });
+          self.add_controller(gesture);
+        }}
       >
+        <Gtk.Box
+          orientation={Gtk.Orientation.HORIZONTAL}
+          cssClasses={["settings-container"]}
+          halign={Gtk.Align.CENTER}
+          valign={Gtk.Align.CENTER}
+          widthRequest={Math.round(1200 * scaleFactor)}
+          heightRequest={Math.round(550 * scaleFactor)}
+        >
         {/* --- SIDEBAR --- */}
         <Gtk.ScrolledWindow
           widthRequest={Math.round(250 * scaleFactor)}
@@ -172,9 +208,7 @@ export default function SettingsWindow({ gdkmonitor }: { gdkmonitor: any }) {
             <Gtk.Button
               label="Close"
               cssClasses={["settings-close-btn"]}
-              onClicked={(self: any) => {
-                self.get_root().visible = false;
-              }}
+              onClicked={(self: any) => hide(self)}
             />
           </Gtk.Box>
         </Gtk.ScrolledWindow>
@@ -221,7 +255,8 @@ export default function SettingsWindow({ gdkmonitor }: { gdkmonitor: any }) {
             />
           </Gtk.Box>
         </Gtk.ScrolledWindow>
-      </Gtk.Box>
+        </Gtk.Box>
+      </box>
     </window>
   );
 }

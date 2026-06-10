@@ -1942,3 +1942,250 @@ label {
 button label {
   color: @on_surface;
 }
+
+/* =============================================================================
+   SETTINGS OVERLAY
+   ============================================================================= */
+
+.settings-overlay-bg {
+  background-color: rgba(0, 0, 0, 0.72);
+}
+
+/* =============================================================================
+   SIDEBAR REDESIGN — new sections
+   ============================================================================= */
+
+.user-avatar-box {
+  background: alpha(@primary_container, 0.88);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 7px;
+  color: @on_primary_container;
+  -gtk-icon-size: 18px;
+}
+
+.user-avatar-box image {
+  color: @on_primary_container;
+}
+
+.user-hostname {
+  font-size: 13px;
+  font-weight: 700;
+  color: @on_background;
+}
+
+.user-uptime {
+  font-size: 11px;
+  color: @on_surface_variant;
+  opacity: 0.7;
+}
+
+/* DND toggle pill */
+.dnd-toggle {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 0 12px;
+  min-height: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  color: @on_surface;
+  transition: all 0.2s ease;
+}
+
+.dnd-toggle label,
+.dnd-toggle image {
+  color: @on_surface;
+  font-size: 12px;
+}
+
+.dnd-toggle.active {
+  background: alpha(@error_container, 0.88);
+  border-color: alpha(@error, 0.45);
+}
+
+.dnd-toggle.active label,
+.dnd-toggle.active image {
+  color: @on_error_container;
+}
+
+/* Media player card */
+.media-section {
+  background: alpha(@secondary_container, 0.45);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.media-art {
+  border-radius: 8px;
+  border: 1px solid alpha(@surface_tint, 0.35);
+  background: alpha(@surface_container, 0.8);
+}
+
+.media-source {
+  font-size: 10px;
+  font-weight: 700;
+  color: @primary;
+  letter-spacing: 0.4px;
+}
+
+.media-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: @on_surface;
+}
+
+.media-artist {
+  font-size: 12px;
+  color: @on_surface_variant;
+  opacity: 0.8;
+}
+
+.media-ctrl-btn {
+  background: alpha(@surface, 0.6);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 999px;
+  padding: 0 9px;
+  min-height: 30px;
+  min-width: 30px;
+  color: @on_surface;
+  transition: all 0.15s ease;
+}
+
+.media-ctrl-btn image {
+  color: @on_surface;
+}
+
+.media-ctrl-btn.play-pause {
+  background: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.35);
+  padding: 0 13px;
+}
+
+.media-ctrl-btn.play-pause image {
+  color: @on_primary_container;
+}
+
+.media-ctrl-btn:hover {
+  background: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.35);
+}
+
+.media-ctrl-btn:hover image {
+  color: @on_primary_container;
+}
+
+/* Docker rows */
+.docker-container-row {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px 8px;
+  transition: background 0.12s ease;
+}
+
+.docker-container-row:hover {
+  background: alpha(@surface_container, 0.7);
+}
+
+.docker-running {
+  font-size: 14px;
+  font-weight: 700;
+  color: #4caf80;
+}
+
+.docker-stopped {
+  font-size: 14px;
+  font-weight: 700;
+  color: @on_surface_variant;
+  opacity: 0.45;
+}
+
+.docker-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: @on_surface;
+}
+
+.docker-image {
+  font-size: 11px;
+  color: @on_surface_variant;
+  opacity: 0.65;
+}
+
+/* Dev grid buttons */
+.dev-grid-btn {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 10px;
+  padding: 10px 6px;
+  color: @on_surface;
+  transition: all 0.15s ease;
+  min-height: 60px;
+}
+
+.dev-grid-btn image {
+  -gtk-icon-size: 20px;
+  color: @primary;
+}
+
+.dev-grid-btn label {
+  font-size: 11px;
+  font-weight: 500;
+  color: @on_surface;
+}
+
+.dev-grid-btn:hover {
+  background: alpha(@primary_container, 0.88);
+  border-color: alpha(@surface_tint, 0.4);
+}
+
+.dev-grid-btn:hover image,
+.dev-grid-btn:hover label {
+  color: @on_primary_container;
+}
+
+/* Power row */
+.power-row {
+  border-top: 1px solid alpha(@surface_tint, 0.28);
+  padding: 8px 0 4px 0;
+  margin-top: 2px;
+}
+
+.power-action-btn {
+  background: alpha(@surface, 0.55);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 10px;
+  padding: 6px 4px;
+  color: @on_surface;
+  transition: all 0.15s ease;
+  min-height: 48px;
+}
+
+.power-action-btn image {
+  -gtk-icon-size: 14px;
+  color: @on_surface;
+}
+
+.power-action-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: @on_surface;
+}
+
+.power-action-btn.lock:hover { background: alpha(@primary_container, 0.88); border-color: alpha(@primary, 0.4); }
+.power-action-btn.lock:hover image,
+.power-action-btn.lock:hover .power-action-label { color: @on_primary_container; }
+
+.power-action-btn.suspend:hover { background: alpha(@tertiary_container, 0.88); border-color: alpha(@tertiary, 0.4); }
+.power-action-btn.suspend:hover image,
+.power-action-btn.suspend:hover .power-action-label { color: @on_tertiary_container; }
+
+.power-action-btn.reboot:hover { background: alpha(@secondary_container, 0.88); border-color: alpha(@secondary, 0.4); }
+.power-action-btn.reboot:hover image,
+.power-action-btn.reboot:hover .power-action-label { color: @on_secondary_container; }
+
+.power-action-btn.shutdown:hover { background: alpha(@error_container, 0.88); border-color: alpha(@error, 0.4); }
+.power-action-btn.shutdown:hover image,
+.power-action-btn.shutdown:hover .power-action-label { color: @on_error_container; }
