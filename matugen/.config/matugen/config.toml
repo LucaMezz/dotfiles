@@ -42,3 +42,7 @@ output_path = "~/dotfiles/hypr/.config/hypr/hyprlock.conf"
 input_path = "~/.config/matugen/templates/sddm-matugen.conf"
 output_path = "~/.cache/sddm-matugen.conf"
 post_hook = "sudo -n ~/.config/hypr/scripts/sddm-update.sh 2>/dev/null || true"
+
+[templates.obsidian]
+input_path = "~/.config/matugen/templates/obsidian-colors.css"
+output_path = "~/notes/knowledge/.obsidian/snippets/matugen.css"
