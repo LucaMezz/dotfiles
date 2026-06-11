@@ -51,7 +51,7 @@ done
 echo
 echo "Setting up sudoers rules..."
 SUDOERS_SDDM="/etc/sudoers.d/sddm-update"
-SDDM_SCRIPT="/home/luca/dotfiles/hypr/.config/hypr/scripts/sddm-update.sh"
+SDDM_SCRIPT="$DOTFILES_DIR/hypr/.config/hypr/scripts/sddm-update.sh"
 if [[ ! -f "$SUDOERS_SDDM" ]]; then
   echo "$USER ALL=(ALL) NOPASSWD: $SDDM_SCRIPT" | sudo tee "$SUDOERS_SDDM" >/dev/null
   sudo chmod 0440 "$SUDOERS_SDDM"
