@@ -1,5 +1,6 @@
 import app from "ags/gtk4/app";
 import Astal from "gi://Astal?version=4.0";
+import Cairo from "gi://cairo";
 import Gdk from "gi://Gdk?version=4.0";
 import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
@@ -126,6 +127,12 @@ export default function SettingsWindow({ gdkmonitor }: { gdkmonitor: any }) {
       layer={Astal.Layer.OVERLAY}
       anchor={TOP | BOTTOM | LEFT | RIGHT}
       $={(self) => {
+        // Fullscreen OVERLAY window must not capture events when hidden.
+        const emptyRegion = new Cairo.Region();
+        self.input_region = emptyRegion;
+        self.connect("show", () => { self.input_region = null; });
+        self.connect("hide", () => { self.input_region = emptyRegion; });
+
         const keys = new Gtk.EventControllerKey();
         keys.connect("key-pressed", (_e, kv) => {
           if (kv === Gdk.KEY_Escape) { self.visible = false; return Gdk.EVENT_STOP; }

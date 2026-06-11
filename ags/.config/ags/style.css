@@ -1369,65 +1369,26 @@ popover listview row modelbutton {
 }
 
 .music-popup-content {
-  background-color: var(--surface);
-  border: 1.5px solid var(--primary);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 12px;
-  min-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: alpha(@surface_container_high, 0.96);
+  border: 1px solid alpha(@surface_tint, 0.35);
+  border-radius: 14px;
+  padding: 12px;
+  margin: 0 10px 10px 10px;
+  min-width: 360px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.5);
 }
 
-.album-cover {
-  border: 1.5px solid var(--outline_variant);
-}
-
-.track-info {
-  margin-left: 4px;
-}
-
-.track-title {
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--primary);
-}
-
-.track-artist {
-  font-size: 12px;
-  color: var(--on_surface_variant);
-  opacity: 0.8;
-}
-
-.controls {
-  margin-top: 4px;
-}
-
-.control-button {
-  background-color: var(--surface_container_low);
-  border: 1.5px solid var(--outline_variant);
+.album-art-clip {
   border-radius: 8px;
-  color: var(--primary);
-  min-width: 40px;
-  min-height: 40px;
-  font-size: 18px;
-  transition: all 200ms ease;
+  border: 1px solid alpha(@surface_tint, 0.28);
 }
 
-.powermenu-card:active,
-.control-button:active {
+.music-popup-controls {
+  margin-top: 2px;
+}
+
+.powermenu-card:active {
   transform: scale(0.95);
-}
-
-.control-button.play-pause {
-  background-color: var(--primary_container);
-  border-color: var(--primary);
-  font-size: 20px;
-  min-width: 48px;
-  min-height: 48px;
-}
-
-.control-button.play-pause label {
-  color: var(--on_primary_container);
 }
 
 /* =============================================================================

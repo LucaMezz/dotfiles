@@ -8,6 +8,7 @@ import Gdk from "gi://Gdk?version=4.0";
 import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
+import GdkPixbuf from "gi://GdkPixbuf";
 import Pango from "gi://Pango";
 import { Variable } from "../utils/Variable";
 import CalendarWidget, { buildDayView } from "./Calendar";
@@ -722,6 +723,53 @@ function buildQuickToggles(): Gtk.Widget {
   return row;
 }
 
+// ── Album art helpers ──────────────────────────────────────────────────────────
+
+function artCachePath(url: string): string {
+  const hash = GLib.compute_checksum_for_string(GLib.ChecksumType.MD5, url, -1) ?? "unknown";
+  return `/tmp/ags-art-${hash}`;
+}
+
+function applyPixbuf(path: string, size: number, picture: Gtk.Picture): void {
+  try {
+    const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(path, size, size, false);
+    if (pixbuf) picture.set_paintable(Gdk.Texture.new_for_pixbuf(pixbuf));
+    else picture.set_paintable(null);
+  } catch (_) {
+    picture.set_paintable(null);
+  }
+}
+
+function loadArtwork(rawArt: string, size: number, currentUrl: { v: string }, picture: Gtk.Picture): void {
+  currentUrl.v = rawArt;
+  if (!rawArt) { picture.set_paintable(null); return; }
+
+  if (rawArt.startsWith("/") || rawArt.startsWith("file://")) {
+    applyPixbuf(rawArt.startsWith("file://") ? rawArt.slice(7) : rawArt, size, picture);
+    return;
+  }
+
+  const dest = artCachePath(rawArt);
+  if (GLib.file_test(dest, GLib.FileTest.EXISTS)) {
+    applyPixbuf(dest, size, picture);
+    return;
+  }
+
+  try {
+    const proc = Gio.Subprocess.new(
+      ["curl", "-sL", "--max-time", "8", "-o", dest, rawArt],
+      Gio.SubprocessFlags.NONE,
+    );
+    proc.wait_async(null, (_p: any, res: any) => {
+      try {
+        proc.wait_finish(res);
+        if (currentUrl.v === rawArt && GLib.file_test(dest, GLib.FileTest.EXISTS))
+          applyPixbuf(dest, size, picture);
+      } catch (_) {}
+    });
+  } catch (_) {}
+}
+
 // ── Media player ───────────────────────────────────────────────────────────────
 
 function buildMediaSection(): Gtk.Widget {
@@ -731,10 +779,26 @@ function buildMediaSection(): Gtk.Widget {
 
   const card = new Gtk.Box({ spacing: 12, cssClasses: ["media-section"], marginBottom: 6 });
 
-  const artBox = new Gtk.Box({ cssClasses: ["media-art"], halign: Gtk.Align.CENTER, valign: Gtk.Align.CENTER });
-  artBox.set_size_request(60, 60);
+  const SIDEBAR_ART = 60;
+
+  const picture = new Gtk.Picture();
+  picture.set_content_fit(Gtk.ContentFit.COVER);
+  picture.set_hexpand(true);
+  picture.set_vexpand(true);
+  picture.set_visible(false);
+
   const artFallback = new Gtk.Image({ iconName: "audio-x-generic-symbolic", pixelSize: 24 });
-  artBox.append(artFallback);
+  artFallback.set_halign(Gtk.Align.CENTER);
+  artFallback.set_valign(Gtk.Align.CENTER);
+
+  const artOverlay = new Gtk.Overlay();
+  artOverlay.set_child(artFallback);
+  artOverlay.add_overlay(picture);
+
+  const artBox = new Gtk.Box({ cssClasses: ["media-art", "album-art-clip"], halign: Gtk.Align.CENTER, valign: Gtk.Align.CENTER });
+  artBox.set_overflow(Gtk.Overflow.HIDDEN);
+  artBox.set_size_request(SIDEBAR_ART, SIDEBAR_ART);
+  artBox.append(artOverlay);
 
   const info = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 2, hexpand: true, valign: Gtk.Align.CENTER });
   const sourceLbl = new Gtk.Label({ xalign: 0, cssClasses: ["media-source"] });
@@ -759,7 +823,7 @@ function buildMediaSection(): Gtk.Widget {
 
   let currentPlayer: any = null;
   const playerSigs: number[] = [];
-  let artProvider: Gtk.CssProvider | null = null;
+  const currentArtUrl = { v: "" };
 
   const clearPlayer = () => {
     playerSigs.forEach((id) => { try { currentPlayer?.disconnect(id); } catch (_) {} });
@@ -788,28 +852,24 @@ function buildMediaSection(): Gtk.Widget {
         pixelSize: 16,
       }));
 
-      const art: string = player.cover_art || "";
-      if (art && art.trim()) {
-        if (artProvider) {
-          try { artBox.get_style_context().remove_provider(artProvider); } catch (_) {}
-        }
-        artProvider = new Gtk.CssProvider();
-        const url = art.startsWith("/") ? `file://${art}` : art;
-        artProvider.load_from_data(`* { background-image:url('${url}'); background-size:cover; background-position:center; }`, -1);
-        artBox.get_style_context().add_provider(artProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      const rawArt: string = (player as any).coverArt || (player as any).cover_art
+                           || (player as any).artUrl   || (player as any).art_url || "";
+      if (rawArt) {
+        picture.set_visible(true);
         artFallback.set_visible(false);
+        loadArtwork(rawArt, SIDEBAR_ART, currentArtUrl, picture);
       } else {
-        if (artProvider) {
-          try { artBox.get_style_context().remove_provider(artProvider); } catch (_) {}
-          artProvider = null;
-        }
+        picture.set_paintable(null);
+        picture.set_visible(false);
         artFallback.set_visible(true);
+        currentArtUrl.v = "";
       }
     };
 
     playerSigs.push(player.connect("notify::title", update));
     playerSigs.push(player.connect("notify::artist", update));
     playerSigs.push(player.connect("notify::cover-art", update));
+    playerSigs.push(player.connect("notify::art-url", update));
     playerSigs.push(player.connect("notify::playback-status", update));
 
     const prevId = prevBtn.connect("clicked", () => { try { player.previous(); } catch (_) {} });
@@ -833,7 +893,7 @@ function buildMediaSection(): Gtk.Widget {
 
   const mprisSigs: number[] = [];
   mprisSigs.push(mpris.connect("player-added", refreshPlayers));
-  mprisSigs.push(mpris.connect("player-removed", refreshPlayers));
+  mprisSigs.push(mpris.connect("player-closed", refreshPlayers));
   refreshPlayers();
 
   root.connect("destroy", () => {
