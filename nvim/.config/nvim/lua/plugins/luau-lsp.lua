@@ -10,6 +10,12 @@ return {
 				type = "roblox",
 			},
 
+			types = {
+				definition_files = {
+					testez = vim.fn.stdpath("config") .. "/types/testez.d.luau",
+				},
+			},
+
 			sourcemap = {
 				enabled = true,
 				autogenerate = false,
