@@ -28,6 +28,8 @@
   --text-success: {{colors.secondary.default.hex}};
   --text-selection: {{colors.primary_container.default.hex}};
   --text-highlight-bg: {{colors.primary_container.default.hex}};
+  --bold-color: {{colors.tertiary.default.hex}};
+  --italic-color: {{colors.tertiary.default.hex}};
 
   /* Accent */
   --color-accent: {{colors.primary.default.hex}};
@@ -74,6 +76,7 @@
   --h6-color: {{colors.on_tertiary_container.default.hex}};
 
   /* Code blocks */
+  --font-monospace: "JetBrainsMono Nerd Font", monospace;
   --code-background: {{colors.surface_container.default.hex}};
   --code-normal: {{colors.on_surface.default.hex}};
   --code-comment: {{colors.outline.default.hex}};
