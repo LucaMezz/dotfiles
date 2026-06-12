@@ -29,6 +29,7 @@ return {
 					"markdown",
 					"markdown_inline",
 				},
+				endwise = { enable = true },
 			})
 
 			-- Neovim 0.12 changed directive handlers to always receive TSNode[]
