@@ -20,5 +20,18 @@ map("n", "<leader>cq", function()
   vim.diagnostic.setqflist({ open = true })
 end, { desc = "Diagnostics quickfix list" })
 
+map("n", "<leader>x", function()
+  local line = vim.api.nvim_get_current_line()
+  local new_line
+  if line:match("[%-%*] %[ %]") then
+    new_line = line:gsub("([%-%*]) %[ %]", "%1 [x]")
+  elseif line:match("[%-%*] %[[xX]%]") then
+    new_line = line:gsub("([%-%*]) %[[xX]%]", "%1 [ ]")
+  end
+  if new_line then
+    vim.api.nvim_set_current_line(new_line)
+  end
+end, { desc = "Toggle markdown checkbox" })
+
 -- Type --- followed by a space/punctuation to get an em dash.
 vim.cmd("iabbrev --- —")

@@ -35,6 +35,8 @@ vim.opt.undofile = true
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
+vim.opt.conceallevel = 2
+
 vim.diagnostic.config({
   virtual_text = true,
   signs = true,
