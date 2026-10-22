@@ -28,8 +28,26 @@ return {
 					"python",
 					"markdown",
 					"markdown_inline",
+					"latex",
 				},
 				endwise = { enable = true },
+			})
+
+			-- Attach a latex parser for math-zone detection (used by
+			-- luasnip-latex-snippets) without enabling the treesitter
+			-- highlighter, so the legacy syntax/tex.vim highlighting
+			-- (much more complete than the latex tree-sitter queries)
+			-- stays in effect.
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "tex",
+				callback = function(args)
+					vim.treesitter.get_parser(args.buf, "latex"):parse(true)
+
+					-- syntax/tex.vim only conceals built-in command names
+					-- (\vdash -> ⊢, etc), not project macros defined via
+					-- \newcommand, so \entails needs its own conceal rule.
+					vim.fn.matchadd("Conceal", "\\\\entails\\>", 15, -1, { conceal = "⊢" })
+				end,
 			})
 
 			-- Neovim 0.12 changed directive handlers to always receive TSNode[]

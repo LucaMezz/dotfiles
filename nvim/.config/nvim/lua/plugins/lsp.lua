@@ -20,6 +20,7 @@ return {
 				"jsonls",
 				"html",
 				"cssls",
+				"texlab",
 			},
 			automatic_enable = {
 				exclude = { "luau_lsp" },
@@ -80,6 +81,19 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("texlab", {
+				capabilities = capabilities,
+				settings = {
+					texlab = {
+						build = {
+							executable = "latexmk",
+							args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+							onSave = true,
+						},
+					},
+				},
+			})
+
 			vim.lsp.enable({
 				"lua_ls",
 				"ts_ls",
@@ -89,6 +103,7 @@ return {
 				"jsonls",
 				"html",
 				"cssls",
+				"texlab",
 			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -130,6 +145,22 @@ return {
 						vim.tbl_extend("force", opts, { desc = "Code action" })
 					)
 
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client and client.name == "texlab" then
+						vim.keymap.set(
+							"n",
+							"<leader>lb",
+							function()
+								vim.lsp.buf.execute_command({
+									command = "texlab.build",
+									arguments = {
+										{ uri = vim.uri_from_bufnr(event.buf) },
+									},
+								})
+							end,
+							vim.tbl_extend("force", opts, { desc = "LaTeX build" })
+						)
+					end
 				end,
 			})
 		end,
