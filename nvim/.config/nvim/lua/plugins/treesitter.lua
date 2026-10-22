@@ -14,6 +14,7 @@ return {
 				ensure_installed = {
 					"lua",
 					"luau",
+					"c_sharp",
 					"vim",
 					"vimdoc",
 					"bash",

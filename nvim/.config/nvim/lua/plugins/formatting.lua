@@ -28,6 +28,7 @@ return {
         markdown = { "prettier" },
         python = { "ruff_format" },
         sh = { "shfmt" },
+        cs = { "csharpier" },
       },
     },
   },
