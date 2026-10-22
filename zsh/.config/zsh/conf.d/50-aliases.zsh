@@ -7,7 +7,7 @@ alias tree='eza --tree --icons'
 
 compdef eza=ls
 
-# alias cat='bat' # Replacement for cat. Can cause issues since it prints line numbers, etc.
+alias cat='bat'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -15,6 +15,21 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias c='clear'
 alias h='history'
+
+# Help for builtins (bash-style `help`), falls back to man
+unalias run-help 2>/dev/null
+autoload -Uz run-help
+
+# Page help files like man pages (see MANPAGER); the title line lets bat's
+# man syntax highlight the usage lines as a header
+function _help_pager() {
+  # Unset PAGER, otherwise bat tries to page through _help_pager itself
+  { print -r -- "${(U)${1:t}}(zsh)"; print; < $1 } | env -u PAGER bat -l man -p
+}
+
+alias run-help='PAGER=_help_pager run-help' # also used by Alt-H
+alias help='run-help'
+alias builtins='print -l ${(ko)builtins} | fzf --no-preview' # zsh equivalent of `compgen -b`
 
 # Core utilities
 

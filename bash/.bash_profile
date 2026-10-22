@@ -8,3 +8,7 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/luca/.local/bin:$PATH"

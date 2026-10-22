@@ -12,6 +12,10 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
-eval "$(keychain --eval --quiet id_ed25519)"
+. "${XDG_CONFIG_HOME:-$HOME/.config}/uwsm/env"
+eval "$(keychain --eval --quiet --absolute --dir "$XDG_RUNTIME_DIR/keychain" id_ed25519)"
 source /usr/share/nvm/init-nvm.sh
-. "$HOME/.rokit/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/luca/.local/bin:$PATH"

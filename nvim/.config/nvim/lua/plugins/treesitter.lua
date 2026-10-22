@@ -3,7 +3,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
 		build = ":TSUpdate",
-		event = { "BufReadPost", "BufNewFile" },
+		lazy = false,
 		cmd = {
 			"TSUpdate",
 			"TSInstall",
@@ -14,6 +14,7 @@ return {
 				ensure_installed = {
 					"lua",
 					"luau",
+					"c_sharp",
 					"vim",
 					"vimdoc",
 					"bash",
@@ -28,8 +29,50 @@ return {
 					"python",
 					"markdown",
 					"markdown_inline",
+					"latex",
 				},
 				endwise = { enable = true },
+			})
+
+			vim.filetype.add({ extension = { roo = "roo" } })
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "TSUpdate",
+				callback = function()
+					require("nvim-treesitter.parsers").roo = {
+						install_info = {
+							path = "/home/luca/dev/tree-sitter-roo",
+							queries = "queries",
+						},
+					}
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "roo",
+				callback = function()
+					vim.treesitter.start()
+					vim.wo.foldmethod = "expr"
+					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+					vim.wo.foldlevel = 99
+				end,
+			})
+
+			-- Attach a latex parser for math-zone detection (used by
+			-- luasnip-latex-snippets) without enabling the treesitter
+			-- highlighter, so the legacy syntax/tex.vim highlighting
+			-- (much more complete than the latex tree-sitter queries)
+			-- stays in effect.
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "tex",
+				callback = function(args)
+					vim.treesitter.get_parser(args.buf, "latex"):parse(true)
+
+					-- syntax/tex.vim only conceals built-in command names
+					-- (\vdash -> ⊢, etc), not project macros defined via
+					-- \newcommand, so \entails needs its own conceal rule.
+					vim.fn.matchadd("Conceal", "\\\\entails\\>", 15, -1, { conceal = "⊢" })
+				end,
 			})
 
 			-- Neovim 0.12 changed directive handlers to always receive TSNode[]

@@ -16,3 +16,22 @@ map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Horizontal split" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+map("n", "<leader>cq", function()
+  vim.diagnostic.setqflist({ open = true })
+end, { desc = "Diagnostics quickfix list" })
+
+map("n", "<leader>x", function()
+  local line = vim.api.nvim_get_current_line()
+  local new_line
+  if line:match("[%-%*] %[ %]") then
+    new_line = line:gsub("([%-%*]) %[ %]", "%1 [x]")
+  elseif line:match("[%-%*] %[[xX]%]") then
+    new_line = line:gsub("([%-%*]) %[[xX]%]", "%1 [ ]")
+  end
+  if new_line then
+    vim.api.nvim_set_current_line(new_line)
+  end
+end, { desc = "Toggle markdown checkbox" })
+
+-- Type --- followed by a space/punctuation to get an em dash.
+vim.cmd("iabbrev --- —")

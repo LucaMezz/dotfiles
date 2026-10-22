@@ -15,13 +15,15 @@ return {
 				"lua_ls",
 				"ts_ls",
 				"pyright",
+				"ruff",
 				"bashls",
 				"jsonls",
 				"html",
 				"cssls",
+				"texlab",
 			},
 			automatic_enable = {
-				exclude = { "luau_lsp" },
+				exclude = { "luau_lsp", "rust_analyzer" },
 			},
 		},
 	},
@@ -53,6 +55,16 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("ruff", {
+				capabilities = vim.tbl_deep_extend("force", capabilities, {
+					general = { positionEncodings = { "utf-16" } },
+				}),
+				on_attach = function(client)
+					-- Disable hover so pyright handles it instead
+					client.server_capabilities.hoverProvider = false
+				end,
+			})
+
 			vim.lsp.config("bashls", {
 				capabilities = capabilities,
 			})
@@ -69,14 +81,29 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("texlab", {
+				capabilities = capabilities,
+				settings = {
+					texlab = {
+						build = {
+							executable = "latexmk",
+							args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+							onSave = true,
+						},
+					},
+				},
+			})
+
 			vim.lsp.enable({
 				"lua_ls",
 				"ts_ls",
 				"pyright",
+				"ruff",
 				"bashls",
 				"jsonls",
 				"html",
 				"cssls",
+				"texlab",
 			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -99,6 +126,13 @@ return {
 
 					vim.keymap.set(
 						"n",
+						"gI",
+						vim.lsp.buf.implementation,
+						vim.tbl_extend("force", opts, { desc = "Go to implementation" })
+					)
+
+					vim.keymap.set(
+						"n",
 						"K",
 						vim.lsp.buf.hover,
 						vim.tbl_extend("force", opts, { desc = "Hover documentation" })
@@ -117,6 +151,23 @@ return {
 						vim.lsp.buf.code_action,
 						vim.tbl_extend("force", opts, { desc = "Code action" })
 					)
+
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client and client.name == "texlab" then
+						vim.keymap.set(
+							"n",
+							"<leader>lb",
+							function()
+								vim.lsp.buf.execute_command({
+									command = "texlab.build",
+									arguments = {
+										{ uri = vim.uri_from_bufnr(event.buf) },
+									},
+								})
+							end,
+							vim.tbl_extend("force", opts, { desc = "LaTeX build" })
+						)
+					end
 				end,
 			})
 		end,
@@ -139,6 +190,22 @@ return {
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
+					end,
+				},
+
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered({ max_height = 15 }),
+				},
+
+				formatting = {
+					fields = { "abbr", "kind", "menu" },
+					format = function(_, item)
+						local max_width = 40
+						if #item.abbr > max_width then
+							item.abbr = item.abbr:sub(1, max_width - 1) .. "…"
+						end
+						return item
 					end,
 				},
 
@@ -174,6 +241,18 @@ return {
 					{ name = "buffer" },
 				},
 			})
+
+			vim.keymap.set({ "i", "s" }, "<C-l>", function()
+				if luasnip.jumpable(1) then
+					luasnip.jump(1)
+				end
+			end, { silent = true })
+
+			vim.keymap.set({ "i", "s" }, "<C-h>", function()
+				if luasnip.jumpable(-1) then
+					luasnip.jump(-1)
+				end
+			end, { silent = true })
 		end,
 	},
 }
