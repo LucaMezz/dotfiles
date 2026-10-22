@@ -3,7 +3,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
 		build = ":TSUpdate",
-		event = { "BufReadPost", "BufNewFile" },
+		lazy = false,
 		cmd = {
 			"TSUpdate",
 			"TSInstall",
@@ -32,6 +32,30 @@ return {
 					"latex",
 				},
 				endwise = { enable = true },
+			})
+
+			vim.filetype.add({ extension = { roo = "roo" } })
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "TSUpdate",
+				callback = function()
+					require("nvim-treesitter.parsers").roo = {
+						install_info = {
+							path = "/home/luca/dev/tree-sitter-roo",
+							queries = "queries",
+						},
+					}
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "roo",
+				callback = function()
+					vim.treesitter.start()
+					vim.wo.foldmethod = "expr"
+					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+					vim.wo.foldlevel = 99
+				end,
 			})
 
 			-- Attach a latex parser for math-zone detection (used by
