@@ -193,6 +193,22 @@ return {
 					end,
 				},
 
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered({ max_height = 15 }),
+				},
+
+				formatting = {
+					fields = { "abbr", "kind", "menu" },
+					format = function(_, item)
+						local max_width = 40
+						if #item.abbr > max_width then
+							item.abbr = item.abbr:sub(1, max_width - 1) .. "…"
+						end
+						return item
+					end,
+				},
+
 				mapping = cmp.mapping.preset.insert({
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -226,6 +242,17 @@ return {
 				},
 			})
 
+			vim.keymap.set({ "i", "s" }, "<C-l>", function()
+				if luasnip.jumpable(1) then
+					luasnip.jump(1)
+				end
+			end, { silent = true })
+
+			vim.keymap.set({ "i", "s" }, "<C-h>", function()
+				if luasnip.jumpable(-1) then
+					luasnip.jump(-1)
+				end
+			end, { silent = true })
 		end,
 	},
 }
