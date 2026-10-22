@@ -23,7 +23,7 @@ return {
 				"texlab",
 			},
 			automatic_enable = {
-				exclude = { "luau_lsp" },
+				exclude = { "luau_lsp", "rust_analyzer" },
 			},
 		},
 	},
