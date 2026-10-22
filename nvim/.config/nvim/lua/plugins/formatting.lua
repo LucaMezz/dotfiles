@@ -26,7 +26,7 @@ return {
         css = { "prettier" },
         html = { "prettier" },
         markdown = { "prettier" },
-        python = { "black" },
+        python = { "ruff_format" },
         sh = { "shfmt" },
       },
     },

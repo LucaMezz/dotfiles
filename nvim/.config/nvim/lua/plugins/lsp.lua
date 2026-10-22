@@ -15,6 +15,7 @@ return {
 				"lua_ls",
 				"ts_ls",
 				"pyright",
+				"ruff",
 				"bashls",
 				"jsonls",
 				"html",
@@ -53,6 +54,16 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("ruff", {
+				capabilities = vim.tbl_deep_extend("force", capabilities, {
+					general = { positionEncodings = { "utf-16" } },
+				}),
+				on_attach = function(client)
+					-- Disable hover so pyright handles it instead
+					client.server_capabilities.hoverProvider = false
+				end,
+			})
+
 			vim.lsp.config("bashls", {
 				capabilities = capabilities,
 			})
@@ -73,6 +84,7 @@ return {
 				"lua_ls",
 				"ts_ls",
 				"pyright",
+				"ruff",
 				"bashls",
 				"jsonls",
 				"html",
@@ -117,6 +129,7 @@ return {
 						vim.lsp.buf.code_action,
 						vim.tbl_extend("force", opts, { desc = "Code action" })
 					)
+
 				end,
 			})
 		end,
@@ -174,6 +187,7 @@ return {
 					{ name = "buffer" },
 				},
 			})
+
 		end,
 	},
 }
