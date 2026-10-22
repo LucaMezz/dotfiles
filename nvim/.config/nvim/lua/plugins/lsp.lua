@@ -126,6 +126,13 @@ return {
 
 					vim.keymap.set(
 						"n",
+						"gI",
+						vim.lsp.buf.implementation,
+						vim.tbl_extend("force", opts, { desc = "Go to implementation" })
+					)
+
+					vim.keymap.set(
+						"n",
 						"K",
 						vim.lsp.buf.hover,
 						vim.tbl_extend("force", opts, { desc = "Hover documentation" })

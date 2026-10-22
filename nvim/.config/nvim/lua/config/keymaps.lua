@@ -16,3 +16,9 @@ map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Horizontal split" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+map("n", "<leader>cq", function()
+  vim.diagnostic.setqflist({ open = true })
+end, { desc = "Diagnostics quickfix list" })
+
+-- Type --- followed by a space/punctuation to get an em dash.
+vim.cmd("iabbrev --- —")
