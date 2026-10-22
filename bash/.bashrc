@@ -15,3 +15,7 @@ PS1='[\u@\h \W]\$ '
 . "${XDG_CONFIG_HOME:-$HOME/.config}/uwsm/env"
 eval "$(keychain --eval --quiet --absolute --dir "$XDG_RUNTIME_DIR/keychain" id_ed25519)"
 source /usr/share/nvm/init-nvm.sh
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/luca/.local/bin:$PATH"
