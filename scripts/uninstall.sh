@@ -11,6 +11,7 @@ PACKAGES=(
   nvim
   kitty
   hypr
+  kwallet
 )
 
 if ! command -v stow >/dev/null 2>&1; then
