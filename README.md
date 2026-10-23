@@ -62,6 +62,7 @@ dotfiles/
 ├── git/          # Git global config and ignore
 ├── hypr/         # Hyprland, Hypridle, Hyprlock, Hyprpaper + scripts
 ├── kitty/        # Kitty terminal emulator
+├── kwallet/      # Unlock KWallet at login (kwallet-pam under uwsm)
 ├── matugen/      # Matugen templates and config
 ├── nvim/         # Neovim (lazy.nvim)
 ├── rofi/         # Rofi wallpaper-picker theme
@@ -113,6 +114,7 @@ Install the following before running the install script. All packages are availa
 | playerctl | `playerctl` |
 | btop | `btop` |
 | Yazi | `yazi` |
+| KWallet PAM | `kwallet-pam` |
 
 **Fonts** — install a [Nerd Font](https://www.nerdfonts.com/). The config uses `JetBrainsMono Nerd Font`.
 

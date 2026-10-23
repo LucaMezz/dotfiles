@@ -19,6 +19,7 @@ PACKAGES=(
   xdg
   yazi
   git
+  kwallet
 )
 
 if ! command -v stow >/dev/null 2>&1; then
@@ -37,8 +38,10 @@ for package in "${PACKAGES[@]}"; do
   if [[ -d "$package" ]]; then
     echo "Stowing $package..."
     # rofi needs --no-folding so matugen-generated colors.rasi lands as a plain
-    # file in ~/.config/rofi/ rather than being symlinked into the dotfiles repo
-    if [[ "$package" == "rofi" ]]; then
+    # file in ~/.config/rofi/ rather than being symlinked into the dotfiles repo;
+    # kwallet needs it so ~/.config/systemd/user stays a real directory that
+    # systemctl --user enable can write to
+    if [[ "$package" == "rofi" || "$package" == "kwallet" ]]; then
       stow --no-folding --verbose --target="$TARGET_DIR" "$package"
     else
       stow --verbose --target="$TARGET_DIR" "$package"
